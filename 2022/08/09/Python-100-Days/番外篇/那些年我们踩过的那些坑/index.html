@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>那些年我们踩过的那些坑 | Hexo</title><meta name="keywords" content="番外篇,Language,English"><meta name="author" content="GreenSeaa"><meta name="copyright" content="GreenSeaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="title: 那些年我们踩过的那些坑 date: ‘2022-08-08 15:01:33’ tags:  Python 番外篇 categories: Python-100-Days 番外篇   那些年我们踩过的那些坑 坑1 - 整数比较的坑 在 Python 中一切都是对象，整数也是对象，在比较两个整数时有两个运算符&#x3D;&#x3D;和is，它们的区别是：  is比较的是两个整数对象的id值是否相等，也就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些年我们踩过的那些坑">
+<meta property="og:url" content="https://yuanweize.github.io/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/%E9%82%A3%E4%BA%9B%E5%B9%B4%E6%88%91%E4%BB%AC%E8%B8%A9%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: 那些年我们踩过的那些坑 date: ‘2022-08-08 15:01:33’ tags:  Python 番外篇 categories: Python-100-Days 番外篇   那些年我们踩过的那些坑 坑1 - 整数比较的坑 在 Python 中一切都是对象，整数也是对象，在比较两个整数时有两个运算符&#x3D;&#x3D;和is，它们的区别是：  is比较的是两个整数对象的id值是否相等，也就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-08-09T03:24:20.000Z">
+<meta property="article:modified_time" content="2022-08-09T04:57:34.420Z">
+<meta property="article:author" content="GreenSeaa">
+<meta property="article:tag" content="番外篇">
+<meta property="article:tag" content="Language">
+<meta property="article:tag" content="English">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/%E9%82%A3%E4%BA%9B%E5%B9%B4%E6%88%91%E4%BB%AC%E8%B8%A9%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"SW7OVVVFHX","apiKey":"5d05023a8579462e72ea704e4f43cf3f","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '那些年我们踩过的那些坑',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '09-08-2022 06:57:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">115</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Day01-15/"><i class="fa-fw fas fa-music"></i><span> Python</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Day01-15/"><i class="fa-fw fas fa-music"></i><span> Python</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">那些年我们踩过的那些坑</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-09T03:24:20.000Z" title="发表于 09-08-2022 05:24:20">09-08-2022</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-09T04:57:34.420Z" title="更新于 09-08-2022 06:57:34">09-08-2022</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/English-level-up-tips-for-Chinese-master/">English-level-up-tips-for-Chinese-master</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/English-level-up-tips-for-Chinese-master/%E7%95%AA%E5%A4%96%E7%AF%87/">番外篇</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="那些年我们踩过的那些坑"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<p>title: 那些年我们踩过的那些坑<br>
+date: ‘2022-08-08 15:01:33’<br>
+tags:</p>
+<ul>
+<li>Python</li>
+<li>番外篇<br>
+categories:</li>
+<li>Python-100-Days</li>
+<li>番外篇</li>
+</ul>
+<hr>
+<h2 id="那些年我们踩过的那些坑">那些年我们踩过的那些坑</h2>
+<h3 id="坑1-整数比较的坑">坑1 - 整数比较的坑</h3>
+<p>在 Python 中一切都是对象，整数也是对象，在比较两个整数时有两个运算符<code>==</code>和<code>is</code>，它们的区别是：</p>
+<ul>
+<li><code>is</code>比较的是两个整数对象的id值是否相等，也就是比较两个引用是否代表了内存中同一个地址。</li>
+<li><code>==</code>比较的是两个整数对象的内容是否相等，使用<code>==</code>时其实是调用了对象的<code>__eq__()</code>方法。</li>
+</ul>
+<p>知道了<code>is</code>和<code>==</code>的区别之后，我们可以来看看下面的代码，了解Python中整数比较有哪些坑，<strong>以CPython解释器为例</strong>，大家先看看下面的代码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">	x = y = -<span class="number">1</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		x += <span class="number">1</span></span><br><span class="line">		y += <span class="number">1</span></span><br><span class="line">		<span class="keyword">if</span> x <span class="keyword">is</span> y:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;%d is %d&#x27;</span> % (x, y))</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;Attention! %d is not %d&#x27;</span> % (x, y))</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">			</span><br><span class="line">	x = y = <span class="number">0</span></span><br><span class="line">	<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">		x -= <span class="number">1</span></span><br><span class="line">		y -= <span class="number">1</span></span><br><span class="line">		<span class="keyword">if</span> x <span class="keyword">is</span> y:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;%d is %d&#x27;</span> % (x, y))</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;Attention! %d is not %d&#x27;</span> % (x, y))</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
+<p>上面代码的部分运行结果如下图所示。这个结果是因为CPython出于性能优化的考虑，把频繁使用的整数对象用一个叫<code>small_ints</code>的对象池缓存起来造成的。<code>small_ints</code>缓存的整数值被设定为<code>[-5, 256]</code>这个区间，也就是说，如果使用CPython解释器，在任何引用这些整数的地方，都不需要重新创建<code>int</code>对象，而是直接引用缓存池中的对象。如果整数不在该范围内，那么即便两个整数的值相同，它们也是不同的对象。</p>
+<p><img src="./res/int-is-comparation.png" alt=""></p>
+<p>当然仅仅如此这个坑就不值一提了，如果你理解了上面的规则，我们就再看看下面的代码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">257</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">	b = <span class="number">257</span>  <span class="comment"># 第6行</span></span><br><span class="line">	c = <span class="number">257</span>  <span class="comment"># 第7行</span></span><br><span class="line">	<span class="built_in">print</span>(b <span class="keyword">is</span> c)  <span class="comment"># True</span></span><br><span class="line">	<span class="built_in">print</span>(a <span class="keyword">is</span> b)  <span class="comment"># False</span></span><br><span class="line">	<span class="built_in">print</span>(a <span class="keyword">is</span> c)  <span class="comment"># False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	main()</span><br></pre></td></tr></table></figure>
+<p>程序的执行结果已经用注释写在代码上了。够坑吧！看上去<code>a</code>、<code>b</code>和<code>c</code>的值都是一样的，但是<code>is</code>运算的结果却不一样。为什么会出现这样的结果，首先我们来说说Python程序中的代码块。所谓代码块是程序的一个最小的基本执行单位，一个模块文件、一个函数体、一个类、交互式命令中的单行代码都叫做一个代码块。上面的代码由两个代码块构成，<code>a = 257</code>是一个代码块，<code>main</code>函数是另外一个代码块。CPython底层为了进一步提升性能还做了一个设定：对于同一个代码块中值不在<code>small_ints</code>缓存范围之内的整数，如果同一个代码块中已经存在一个值与其相同的整数对象，那么就直接引用该对象，否则创建新的<code>int</code>对象。需要大家注意的是，这条规则对数值型适用，但对字符串则需要考虑字符串的长度，这一点可以自行证明。<br>
+为了验证刚刚的结论，我们可以借用<code>dis</code>模块（听名字就知道是进行反汇编的模块）从字节码的角度来看看这段代码。如果不理解什么是字节码，可以先看看<a href="(http://www.cnblogs.com/restran/p/4903056.html)">《谈谈 Python 程序的运行原理》</a>这篇文章。可以先用<code>import dis</code>导入<code>dis</code>模块并按照如下所示的方式修改代码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> dis</span><br><span class="line"></span><br><span class="line">dis.dis(main)</span><br></pre></td></tr></table></figure>
+<p>代码的执行结果如下图所示。可以看出代码第6行和第7行，也就是<code>main</code>函数中的257是从同一个位置加载的，因此是同一个对象；而代码第9行的<code>a</code>明显是从不同的地方加载的，因此引用的是不同的对象。</p>
+<p><img src="./res/result-of-dis.png" alt=""></p>
+<p>如果还想对这个问题进行进一步深挖，推荐大家阅读<a target="_blank" rel="noopener" href="https://foofish.net/python_int_implement.html">《Python整数对象实现原理》</a>这篇文章。</p>
+<h3 id="坑2-嵌套列表的坑">坑2 - 嵌套列表的坑</h3>
+<p>Python中有一种内置的数据类型叫列表，它是一种容器，可以用来承载其他的对象（准确的说是其他对象的引用），列表中的对象可以称为列表的元素，很明显我们可以把列表作为列表中的元素，这就是所谓的嵌套列表。嵌套列表可以模拟出现实中的表格、矩阵、2D游戏的地图（如植物大战僵尸的花园）、棋盘（如国际象棋、黑白棋）等。但是在使用嵌套的列表时要小心，否则很可能遭遇非常尴尬的情况，下面是一个小例子。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names = [<span class="string">&#x27;关羽&#x27;</span>, <span class="string">&#x27;张飞&#x27;</span>, <span class="string">&#x27;赵云&#x27;</span>, <span class="string">&#x27;马超&#x27;</span>, <span class="string">&#x27;黄忠&#x27;</span>]</span><br><span class="line">subjs = [<span class="string">&#x27;语文&#x27;</span>, <span class="string">&#x27;数学&#x27;</span>, <span class="string">&#x27;英语&#x27;</span>]</span><br><span class="line">scores = [[<span class="number">0</span>] * <span class="number">3</span>] * <span class="number">5</span></span><br><span class="line"><span class="keyword">for</span> row, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(names):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;请输入%s的成绩&#x27;</span> % name)</span><br><span class="line">    <span class="keyword">for</span> col, subj <span class="keyword">in</span> <span class="built_in">enumerate</span>(subjs):</span><br><span class="line">        scores[row][col] = <span class="built_in">float</span>(<span class="built_in">input</span>(subj + <span class="string">&#x27;: &#x27;</span>))</span><br><span class="line">        <span class="built_in">print</span>(scores)</span><br></pre></td></tr></table></figure>
+<p>我们希望录入5个学生3门课程的成绩，于是定义了一个有5个元素的列表，而列表中的每个元素又是一个由3个元素构成的列表，这样一个列表的列表刚好跟一个表格是一致的，相当于有5行3列，接下来我们通过嵌套的for-in循环输入每个学生3门课程的成绩。程序执行完成后我们发现，每个学生3门课程的成绩是一模一样的，而且就是最后录入的那个学生的成绩。</p>
+<p>要想把这个坑填平，我们首先要区分对象和对象的引用这两个概念，而要区分这两个概念，还得先说说内存中的栈和堆。我们经常会听人说起“堆栈”这个词，但实际上“堆”和“栈”是两个不同的概念。众所周知，一个程序运行时需要占用一些内存空间来存储数据和代码，那么这些内存从逻辑上又可以做进一步的划分。对底层语言（如C语言）有所了解的程序员大都知道，程序中可以使用的内存从逻辑上可以为五个部分，按照地址从高到低依次是：栈（stack）、堆（heap）、数据段（data segment）、只读数据段（static area）和代码段（code segment）。其中，栈用来存储局部、临时变量，以及函数调用时保存现场和恢复现场需要用到的数据，这部分内存在代码块开始执行时自动分配，代码块执行结束时自动释放，通常由编译器自动管理；堆的大小不固定，可以动态的分配和回收，因此如果程序中有大量的数据需要处理，这些数据通常都放在堆上，如果堆空间没有正确的被释放会引发内存泄露的问题，而像Python、Java等编程语言都使用了垃圾回收机制来实现自动化的内存管理（自动回收不再使用的堆空间）。所以下面的代码中，变量<code>a</code>并不是真正的对象，它是对象的引用，相当于记录了对象在堆空间的地址，通过这个地址我们可以访问到对应的对象；同理，变量<code>b</code>是列表容器的引用，它引用了堆空间上的列表容器，而列表容器中并没有保存真正的对象，它保存的也仅仅是对象的引用。</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="built_in">object</span>()</span><br><span class="line">b = [<span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;pitaya&#x27;</span>, <span class="string">&#x27;grape&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>知道了这一点，我们可以回过头看看刚才的程序，我们对列表进行<code>[[0] * 3] * 5</code>操作时，仅仅是将<code>[0, 0, 0]</code>这个列表的地址进行了复制，并没有创建新的列表对象，所以容器中虽然有5个元素，但是这5个元素引用了同一个列表对象，这一点可以通过<code>id</code>函数检查<code>scores[0]</code>和<code>scores[1]</code>的地址得到证实。所以正确的代码应该按照如下的方式进行修改。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names = [<span class="string">&#x27;关羽&#x27;</span>, <span class="string">&#x27;张飞&#x27;</span>, <span class="string">&#x27;赵云&#x27;</span>, <span class="string">&#x27;马超&#x27;</span>, <span class="string">&#x27;黄忠&#x27;</span>]</span><br><span class="line">subjs = [<span class="string">&#x27;语文&#x27;</span>, <span class="string">&#x27;数学&#x27;</span>, <span class="string">&#x27;英语&#x27;</span>]</span><br><span class="line">scores = [[]] * <span class="number">5</span></span><br><span class="line"><span class="keyword">for</span> row, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(names):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;请输入%s的成绩&#x27;</span> % name)</span><br><span class="line">    scores[row] = [<span class="number">0</span>] * <span class="number">3</span></span><br><span class="line">    <span class="keyword">for</span> col, subj <span class="keyword">in</span> <span class="built_in">enumerate</span>(subjs):</span><br><span class="line">        scores[row][col] = <span class="built_in">float</span>(<span class="built_in">input</span>(subj + <span class="string">&#x27;: &#x27;</span>))</span><br><span class="line">        <span class="built_in">print</span>(scores)</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names = [<span class="string">&#x27;关羽&#x27;</span>, <span class="string">&#x27;张飞&#x27;</span>, <span class="string">&#x27;赵云&#x27;</span>, <span class="string">&#x27;马超&#x27;</span>, <span class="string">&#x27;黄忠&#x27;</span>]</span><br><span class="line">subjs = [<span class="string">&#x27;语文&#x27;</span>, <span class="string">&#x27;数学&#x27;</span>, <span class="string">&#x27;英语&#x27;</span>]</span><br><span class="line">scores = [[<span class="number">0</span>] * <span class="number">3</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"><span class="keyword">for</span> row, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(names):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;请输入%s的成绩&#x27;</span> % name)</span><br><span class="line">    scores[row] = [<span class="number">0</span>] * <span class="number">3</span></span><br><span class="line">    <span class="keyword">for</span> col, subj <span class="keyword">in</span> <span class="built_in">enumerate</span>(subjs):</span><br><span class="line">        scores[row][col] = <span class="built_in">float</span>(<span class="built_in">input</span>(subj + <span class="string">&#x27;: &#x27;</span>))</span><br><span class="line">        <span class="built_in">print</span>(scores)</span><br></pre></td></tr></table></figure>
+<p>如果对内存的使用不是很理解，可以看看<a target="_blank" rel="noopener" href="http://www.pythontutor.com/">PythonTutor网站</a>上提供的代码可视化执行功能，通过可视化执行，我们可以看到内存是如何分配的，从而避免在使用嵌套列表或者复制对象时可能遇到的坑。</p>
+<p><img src="./res/python-tutor-visualize.png" alt=""></p>
+<p><img src="./res/python-tutor-visualize2.png" alt=""></p>
+<h3 id="坑3-访问修饰符的坑">坑3 - 访问修饰符的坑</h3>
+<p>用Python做过面向对象编程的人都知道，Python的类提供了两种访问控制权限，一种是公开，一种是私有（在属性或方法前加上双下划线）。而用惯了Java或C#这类编程语言的人都知道，类中的属性（数据抽象）通常都是私有的，其目的是为了将数据保护起来；而类中的方法（行为抽象）通常都是公开的，因为方法是对象向外界提供的服务。但是Python并没有从语法层面确保私有成员的私密性，因为它只是对类中所谓的私有成员进行了命名的变换，如果知道命名的规则照样可以直接访问私有成员，请看下面的代码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age</span>):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self.__age = age</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.__name + <span class="string">&#x27;: &#x27;</span> + <span class="built_in">str</span>(self.__age)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stu = Student(<span class="string">&#x27;骆昊&#x27;</span>, <span class="number">38</span>)</span><br><span class="line"><span class="built_in">print</span>(stu._Student__name)</span><br><span class="line"><span class="built_in">print</span>(stu._Student__age)</span><br></pre></td></tr></table></figure>
+<p>Python为什么要做出这样的设定呢？用一句广为流传的格言来解释这个问题：“We are all consenting adults here”（我们都是成年人）。这句话表达了很多Python程序员的一个共同观点，那就是开放比封闭要好，我们应该自己对自己的行为负责而不是从语言层面来限制对数据或方法的访问。</p>
+<p>所以在Python中我们实在没有必要将类中的属性或方法用双下划线开头的命名处理成私有的成员，因为这并没有任何实际的意义。如果想对属性或方法进行保护，我们建议用单下划线开头的受保护成员，虽然它也不能真正保护这些属性或方法，但是它相当于给调用者一个暗示，让调用者知道这是不应该直接访问的属性或方法，而且这样做并不影响子类去继承这些东西。</p>
+<p>需要提醒大家注意的是，Python类中的那些魔法方法，如<code>__str__</code>、<code>__repr__</code>等，这些方法并不是私有成员哦，虽然它们以双下划线开头，但是他们也是以双下划线结尾的，这种命名并不是私有成员的命名，这一点对初学者来说真的很坑。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">GreenSeaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/%E9%82%A3%E4%BA%9B%E5%B9%B4%E6%88%91%E4%BB%AC%E8%B8%A9%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/">https://yuanweize.github.io/2022/08/09/Python-100-Days/番外篇/那些年我们踩过的那些坑/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuanweize.github.io" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%95%AA%E5%A4%96%E7%AF%87/">番外篇</a><a class="post-meta__tags" href="/tags/Language/">Language</a><a class="post-meta__tags" href="/tags/English/">English</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/%E8%8B%B1%E8%AF%AD%E9%9D%A2%E8%AF%95/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">英语面试</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/%E7%9F%A5%E4%B9%8E%E9%97%AE%E9%A2%98%E5%9B%9E%E7%AD%94/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">知乎问题回答</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/PEP8%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" title="PEP8风格指南"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="title">PEP8风格指南</div></div></a></div><div><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/Python%E4%B9%8B%E7%A6%85%E7%9A%84%E6%9C%80%E4%BD%B3%E7%BF%BB%E8%AF%91/" title="Python之禅的最佳翻译"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="title">Python之禅的最佳翻译</div></div></a></div><div><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/Python%E5%8F%82%E8%80%83%E4%B9%A6%E7%B1%8D/" title="Python参考书籍"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="title">Python参考书籍</div></div></a></div><div><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98/" title="Python数据分析师面试题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="title">Python数据分析师面试题</div></div></a></div><div><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/Python%E7%BC%96%E7%A8%8B%E6%83%AF%E4%BE%8B/" title="Python编程惯例"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="title">Python编程惯例</div></div></a></div><div><a href="/2022/08/09/Python-100-Days/%E7%95%AA%E5%A4%96%E7%AF%87/%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90%E5%8A%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E5%8D%8F%E7%A8%8B/" title="一个小例子助你彻底理解协程"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="title">一个小例子助你彻底理解协程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenSeaa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">115</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuanweize" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:info@hktse.cz" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%A3%E4%BA%9B%E5%B9%B4%E6%88%91%E4%BB%AC%E8%B8%A9%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91"><span class="toc-number">1.</span> <span class="toc-text">那些年我们踩过的那些坑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%911-%E6%95%B4%E6%95%B0%E6%AF%94%E8%BE%83%E7%9A%84%E5%9D%91"><span class="toc-number">1.1.</span> <span class="toc-text">坑1 - 整数比较的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%912-%E5%B5%8C%E5%A5%97%E5%88%97%E8%A1%A8%E7%9A%84%E5%9D%91"><span class="toc-number">1.2.</span> <span class="toc-text">坑2 - 嵌套列表的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%913-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E5%9D%91"><span class="toc-number">1.3.</span> <span class="toc-text">坑3 - 访问修饰符的坑</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/09/Python-100-Days/Day01-15/06.%E5%87%BD%E6%95%B0%E5%92%8C%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/" title="06.函数和模块的使用">06.函数和模块的使用</a><time datetime="2022-08-09T04:43:52.000Z" title="发表于 09-08-2022 06:43:52">09-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/09/Python-100-Days/Day66-80/66.%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A6%82%E8%BF%B0/" title="66.数据分析概述">66.数据分析概述</a><time datetime="2022-08-09T03:33:02.000Z" title="发表于 09-08-2022 05:33:02">09-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/09/Python-100-Days/Day66-80/67.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" title="67.环境准备">67.环境准备</a><time datetime="2022-08-09T03:33:02.000Z" title="发表于 09-08-2022 05:33:02">09-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/09/Python-100-Days/Day66-80/70.Pandas%E7%9A%84%E5%BA%94%E7%94%A8-1/" title="70.Pandas的应用-1">70.Pandas的应用-1</a><time datetime="2022-08-09T03:33:02.000Z" title="发表于 09-08-2022 05:33:02">09-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/09/Python-100-Days/Day66-80/73.Pandas%E7%9A%84%E5%BA%94%E7%94%A8-4/" title="73.Pandas的应用-4">73.Pandas的应用-4</a><time datetime="2022-08-09T03:33:02.000Z" title="发表于 09-08-2022 05:33:02">09-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By GreenSeaa</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
