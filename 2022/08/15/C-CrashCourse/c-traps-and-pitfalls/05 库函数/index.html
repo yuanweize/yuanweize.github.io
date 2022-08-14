@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>05 库函数 | HExLL</title><meta name="keywords" content="C语言,c-traps-and-pitfalls"><meta name="author" content="GreenSeaa"><meta name="copyright" content="GreenSeaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="[C 陷阱与缺陷]  （五）  库函数 C语言中没有定义输入&#x2F;输出语句,任何一个有用的 C 程序(起码必须接受零个或多个输入，生成一个或多个输出)都必须调用库函数来完成最基本的输入和输出操作。ANSI C 标准毫无疑问地意识到了这一点， 因而定义了一个包含大量标准库函数的集合。从理论上说，任何一个 C 语言实现都应该提供这些标准库函数。 有关库函数的使用，我们能给出的最好建议是尽量使用系统头文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05 库函数">
+<meta property="og:url" content="https://yuanweize.github.io/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/05%20%E5%BA%93%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="HExLL">
+<meta property="og:description" content="[C 陷阱与缺陷]  （五）  库函数 C语言中没有定义输入&#x2F;输出语句,任何一个有用的 C 程序(起码必须接受零个或多个输入，生成一个或多个输出)都必须调用库函数来完成最基本的输入和输出操作。ANSI C 标准毫无疑问地意识到了这一点， 因而定义了一个包含大量标准库函数的集合。从理论上说，任何一个 C 语言实现都应该提供这些标准库函数。 有关库函数的使用，我们能给出的最好建议是尽量使用系统头文件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-08-14T22:45:19.000Z">
+<meta property="article:modified_time" content="2022-08-14T22:48:08.550Z">
+<meta property="article:author" content="GreenSeaa">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="c-traps-and-pitfalls">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/05%20%E5%BA%93%E5%87%BD%E6%95%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"SW7OVVVFHX","apiKey":"5d05023a8579462e72ea704e4f43cf3f","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '05 库函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '15-08-2022 00:48:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">801</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">70</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">69</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HExLL</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">05 库函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T22:45:19.000Z" title="发表于 15-08-2022 00:45:19">15-08-2022</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-14T22:48:08.550Z" title="更新于 15-08-2022 00:48:08">15-08-2022</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/c-traps-and-pitfalls/">c-traps-and-pitfalls</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="05 库函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="C-陷阱与缺陷-（五）-库函数">[C 陷阱与缺陷]  （五）  库函数</h2>
+<p>C语言中没有定义输入/输出语句,任何一个有用的 C 程序(起码必须接受零个或多个输入，生成一个或多个输出)都必须调用库函数来完成最基本的输入和输出操作。ANSI C 标准毫无疑问地意识到了这一点， 因而定义了一个包含大量标准库函数的集合。从理论上说，任何一个 C 语言实现都应该提供这些标准库函数。</p>
+<p>有关库函数的使用，我们能给出的最好建议是尽量使用系统头文件。</p>
+<h3 id="一-库函数">一  库函数</h3>
+<h4 id="1-返回整数的-getchar-函数">1. 返回整数的 getchar 函数</h4>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">main(<span class="type">void</span>)&#123;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>((c = getchar()) != EOF)</span><br><span class="line">        <span class="built_in">putchar</span>(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getchar 函数在一般情况下返回的是标准输入文件中的下一个字符，当没有输入时返回EOF (一个在头文件stdio.h 中被定义的值，不同于任何一个字符)。这个程序乍一看似乎是把标准输入复制到标准输出，实则不然。</p>
+<p>原因在于程序中的变量 c 被声明为 char 类型，而不是 int 类型。这意味着c无法容下所有可能的字符，特别是，可能无法容下 EOF 。</p>
+<p>因此，最终结果存在两种可能。一种可能是，某些合法的输入字符在被“截断”后使得 c 的取值与 EOF 相同；另一种可能是, c 根本不可能取到EOF这个值。对于前一种情况，程序将在文件复制的中途终止；对于后一种情况，程序将陷入一个死循环。</p>
+<p>实际上，还有可能存在第三种情况：程序表面上似乎能够正常工作，但完全是因为巧合。尽管函数 getchar 的返回结果在赋给 char 类型的变量 c 时会发生“截断”操作，尽管 while 语句中比较运算的操作数不是函数 getchar 的返回值，而是被“截断”的值 c,然而令人惊讶地是许多编译器对上述表达式的实现并不正确。这些编译器确实对函数 getchar 的返回值作了“截断”处理，并把低端字节部分赋给了变量c。但是，它们在比较表达式中并不是比较 c 与 EOF，而是比较 getchar 函数的返回值与 EOF ! 编译器如果采取的是这种做法，上面的例子程序看 上去就能够“正常”运行了。</p>
+<h4 id="2-更新顺序文件">2. 更新顺序文件</h4>
+<p>许多系统中的标准输入/输出库都允许程序打开一个文件,同时进行写入和读出的操作:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">FILE *fp;</span><br><span class="line">fp = open(file, <span class="string">&quot;r+&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>上面的例子代码打开了文件名由变量file 指定的文件，对于存取权限的设定表明程序希望对这个文件进行输入和输出操作。</p>
+<p>编程者也许认为，程序一旦执行上述操作完毕，就可以自由地交错进行读出和写入的操作。遗憾的是，事实总难遂人所愿，为了保持与过去不能同时进行读写操作的程序的向下兼容性，一个输入操作不能随后直接紧跟一个输出操作，反之亦然。如果要同时进行输入和输出操作，必须在其中插入fseek 函数的调用。</p>
+<p>下面的程序片段似乎更新了一个顺序文件中选定的记录:.</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">FILE *fp;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">record</span> <span class="title">rec</span>;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(fread((<span class="type">char</span>*)&amp;rec), <span class="keyword">sizeof</span>(rec), <span class="number">1</span>, fp) == <span class="number">1</span> )&#123;</span><br><span class="line">    <span class="comment">/* 对 rec 执行某些操纵 */</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/* rec 必须被重新写入 */</span>)&#123;</span><br><span class="line">        fseek(fp, -(<span class="type">long</span>)<span class="keyword">sizeof</span>(rec), <span class="number">1</span>);</span><br><span class="line">        fwrite( (<span class="type">char</span>*)&amp;rec, <span class="keyword">sizeof</span>(rec), <span class="number">1</span>, fp );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码乍看上去毫无问题: <code>&amp;rec</code>  在传入 fread 和fwrite 函数时被小心翼翼地转换为字符指针类型，<code>sizeof(rec)</code> 被转换为 长整型(fseek 函数要求第二个参数是 long 类型，因为 int类型的整数可能无法包含一个文件的大小；sizeof 返回一个unsigned 值，因此首先必须将其转换为有符号类型才有可能将其反号)。但是这段代码仍然可能运行失败，而且出错的方式非常难于察觉。</p>
+<p>问题出在：如果一个记录需要被重新写入文件，也就是说，fwrite 函数得到执行，对这个文件执行的下一个操作将是循环开始的 fread 函数。因为在fwrite函数调用与fread函数调用之,间缺少了一个fseek函数调用，所以无法进行上述操作。解决的办法是把这段代码改写为:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(fread((<span class="type">char</span>*)&amp;rec), <span class="keyword">sizeof</span>(rec), <span class="number">1</span>, fp) == <span class="number">1</span> )&#123;</span><br><span class="line">    <span class="comment">/* 对 rec 执行某些操纵 */</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/* rec 必须被重新写入 */</span>)&#123;</span><br><span class="line">        fseek(fp, -(<span class="type">long</span>)<span class="keyword">sizeof</span>(rec), <span class="number">1</span>);</span><br><span class="line">        fwrite( (<span class="type">char</span>*)&amp;rec, <span class="keyword">sizeof</span>(rec), <span class="number">1</span>, fp );</span><br><span class="line">        fseek(fp, <span class="number">0L</span>, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二个fseek函数虽然看上去什么也没做，但它改变了文件的状态，使得文件现在可以正常地进行读取了。</p>
+<p><strong>程序圆帮你理解</strong>：</p>
+<ul>
+<li>
+<p><strong><code>&amp;rec</code>为何要强转成 <code>char*</code>类型</strong>：这就要理解 fread 函数（<code>size_t fread ( void * ptr, size_t size, size_t count, FILE * stream )</code>）：fread 函数的参数有四个，简单的来说就是：从 stream 中读 count 个 size 大小的元素到 ptr 指向的内存中。而 fread 内部在读取一个 size 大小的元素时会调用 size 次 fputc 函数，所以我猜测是每次用 fputc 函数读一个字节然后将该值赋给 ptr 指向的那个地址。既然 fputc 每次只能读一个，那也应该将 ptr 强转为 char* 类型。（但是函数原型是 <code>void*</code> 类型，会发生实参提升，转成 <code>void*</code>，这又是个问题了）。</p>
+</li>
+<li>
+<p>其实上面的程序可以简化为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">fread();</span><br><span class="line">fseek();</span><br><span class="line">fwrite();</span><br><span class="line">fread();</span><br></pre></td></tr></table></figure>
+<p>我们知道，读写之间需要调用一次 fseek，这就是为什么要在 fwrite 后调用 fseek 了。</p>
+</li>
+</ul>
+<h4 id="3-缓冲输出-与内存分配">3.缓冲输出 与内存分配</h4>
+<p>当一个程序生成输出时，是否有必要将输出立即展示给用户?这个问题的答案根据不同的程序而定。</p>
+<p>程序输出有两种方式：一种是即时处理方式，另一种是先暂存起来，然后再大块写入的方式，前者往往造成较高的系统负担。因此，C语言实现通常都允许程序员进行实际的写操作之前控制产生的输出数据量。</p>
+<p>这种控制能力一般是通过库函数 setbuf 实现的。如果buf是一个大小适当的字符数组，那么</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">setbuf(<span class="built_in">stdout</span>, buf);</span><br></pre></td></tr></table></figure>
+<p>语句将通知输入/输出库，所有写入到 stdout 的输出都应该使用 buf 作为输出缓冲区，直到 buf 缓冲区被填满或者程序员直接调用 flush (译注:对于由写操作打开的文件，调用 fflush 将导致输出缓冲区的内容被实际地写入该文件)，buf 缓冲区中的内容才实际写入到stdout 中。缓冲区的大小由系统头文件&lt;stdio.h&gt;中的 BUFSIZ 定义。</p>
+<p><strong>程序圆帮你理解：</strong> setbuf 比较老，现在可以用 C99 引入的函数 <code>setvbuf</code></p>
+<p>下面的程序的作用是把标准输入的内容复制到标准输出中，演示了setbuf 库函数最显而易见的用法:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">	<span class="type">int</span> C;</span><br><span class="line">	</span><br><span class="line">	<span class="type">char</span> buf [BUFSIZ];</span><br><span class="line">	setbuf(<span class="built_in">stdout</span>, buf) ;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>((c = getchar()) != EOF)</span><br><span class="line">		<span class="built_in">putchar</span>(c) ;</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>遗憾的是，这个程序是错误的，仅仅是因为一个细微的原因。程序中对库函数 setbuf 的调用，通知了输入输出库所有字符的标准输出应该首先缓存在 buf 中。要找到问题出自何处，我们不妨思考一下buf缓冲区最后一次被清空是在什么时候?答案是在 main 函数结束之后，作为程序交回控制给操作系统之前 C 运行时库所必须进行的清理工作的一部分。但是，在此之前 buf 字符数组已经被释放！</p>
+<p>要避免这种类型的错误有两种办法。第一种办法是让缓冲数组成为静态数组,即可以直接显式声明 buf 为静态:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">char</span> buf[BUFSIZ];</span><br></pre></td></tr></table></figure>
+<p>也可以把 buf 声明完全移到 main 函数之外。</p>
+<p>第二种办法是动态分配缓冲区，在程序中并不主动释放分配的缓冲区(译注:由于缓冲区是动态分配的，所以 main 函数结束时并不会释放该缓冲区，这样 C 运行时库进行清理工作时就不会发生缓冲区已释放的情况):</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">malloc</span><span class="params">()</span> ;</span><br><span class="line"></span><br><span class="line">setbuf(<span class="built_in">stdout</span>, <span class="built_in">malloc</span>(BUFSIZ));</span><br></pre></td></tr></table></figure>
+<p>如果读者关心一些编程“小技巧”，也许会注意到这里其实并不需要检查 malloc 函数调用是否成功。如果 malloc 函数调用失败，将返回一个 NULL 指针。setbuf 函数的第二个参数取值可以为 NULL，此时标准输出不需要进行缓冲。这种情况下,<br>
+程序仍然能够工作，只不过速度较慢而已。</p>
+<h4 id="4-使用errno检测错误">4. 使用errno检测错误</h4>
+<p>很多库函数，特别是那些与操作系统有关的，当执行失败时会通过一个名称为 <code>errno</code> 的外部变量，通知程序该函数调用失败。下面的代码利用这一 特性进行错误处理，似乎再清楚明白不过，然而却是错误的:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*调用库函数*/</span></span><br><span class="line"><span class="keyword">if</span> (errno)</span><br><span class="line">	<span class="comment">/*处理错误*/</span>	</span><br></pre></td></tr></table></figure>
+<p>出错原因在于，在库函数调用没有失败的情况下，并没有强制要求库函数一定要设置 errno 为0，这样errno 的值就可能是前一个执行失败的库函数设置的值。</p>
+<p>下面的代码作了更正，似乎能够工作，很可惜还是错误的:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">errno = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/*调用库函数*/</span></span><br><span class="line">	<span class="keyword">if</span> (errno)</span><br><span class="line">        <span class="comment">/*处理错误*/</span>	</span><br></pre></td></tr></table></figure>
+<p>库函数在调用成功时，既没有强制要求对 errno 清零，但同时也没有禁止设置 errno。既然库函数已经调用成功，为什么还有可能设置 errno 呢? 要理解这一点，我们不妨假想一下库函数 fopen 在调用时可能会发生什么情况。</p>
+<p>当 fopen 函数被要求新建一个文件以供程序输出时，如果已经存在一个同名文件，fopen 函数将先删除它，然后新建一个文件。 这样，fopen 函数可能需要调用其他的库函数，以检测同名文件是否已经存在。(译注:假设用于检测文件的库函数在文件不存在时，会设置 errno 。那么，fopen 函数每次新建一个事先并不存在的文件时，即使没有任何程序错误发生，errmo 也仍然可能被设置。)</p>
+<p>因此，在调用库函数时，我们应该首先检测作为错误指示的返回值，确定程序执行已经失败。然后，再检查 errno，来搞清楚出错原因:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*调用库函数*/</span></span><br><span class="line"><span class="keyword">if</span> (返回的错误值)</span><br><span class="line">	<span class="comment">/* 检查errno */</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-库函数-signal">5. 库函数 signal</h4>
+<p>关于 signal 函数使用需要避免的情况：</p>
+<ul>
+<li>
+<p><strong>信号处理函数不应该调用复杂的库函数</strong>（例如：malloc）</p>
+<p>例如，假设malloc函数的执行过程被一个信号中断。 此时，malloc 函数用来跟踪可用内存的数据结构很可能只有部分被更新。如果 signal 处理函数再调用 malloc 函数，结果可能是 malloc 函数用到的数据结构完全崩溃，后果不堪设想!</p>
+</li>
+<li>
+<p><strong>从 siganl 函数中使用 longjup 退出</strong></p>
+<p>基于同样的原因，从 signal 处理函数中使用 longjmp 退出，通常情况下也是不安全的：因为信号可能发生在 malloc 或者其他库函数开始更新某个数据结构，却又没有最后完成的过程中。因此，signal 处理函数能够做的安全的事情，似乎就只有设置一个标志然后返回，期待以后主程序能够检查到这个标志，发现一个信号已经发生。</p>
+</li>
+<li>
+<p><strong>算数运算错误</strong></p>
+<p>然而，就算这样做也并不总是安全的。当一个算术运算错误(例如溢出或者零作除数)引发一个信号时，某些机器在signal 处理函数返回后还将重新执行失败的操作。而当这个算术运算重新执行时，我们并没有一个可移植的办法来改变操作数。这种情况下，最可能的结果就是马上又引发一个同样的信号。因此，对于算术运算错误，signal 处理函数的惟一安全、 可移植的操作就是打印一条出错消息，然后使用 longjmp 或 exit 立即退出程序。</p>
+</li>
+</ul>
+<p>由此，我们得到的结论是：信号非常复杂棘手，而且具有一些从本质上而言不可移植的特性。解决这个问题我们最好采取“守势”，让signal处理函数尽可能地简单，并将它们组织在一起。这样，当需要适应一个新系统时，我们可以很容易地进行修改。</p>
+<h3 id="练习">练习</h3>
+<h4 id="练习5-1">练习5-1</h4>
+<p>当一个程序异常终止时，程序输出的最后几行常常会去失，原因是什么?我们能够采取怎样的措施来解决这个问题?</p>
+<p>一个异常终止的程序可能没有机会来清空其输出缓冲区。</p>
+<p>解决方案就是在调试时强制不允许对输出进行缓冲。要做到这一点,不同的系统有不同的做法，这些做法虽然存在细微差别，但大致如下:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">setbuf(<span class="built_in">stdout</span>, (<span class="type">char</span> *)<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>这个语句必须在任何输出被写入到 stdout(包括任何对 printf 函数的调用)之前执行。该语句最恰当的位置就是作为main函数的第一个语句。</p>
+<h4 id="练习5-2">练习5-2</h4>
+<p>下 面程序的作用是把它的输入复制到输出：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">main()</span><br><span class="line">	<span class="keyword">register</span> <span class="type">int</span> c;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> ((c = getchar()) != EOF)</span><br><span class="line">		<span class="built_in">putchar</span>(c);</span><br><span class="line">&#125;		</span><br></pre></td></tr></table></figure>
+<p>从这个程序中去掉 <code>#include</code> 语句，将导致程序不能通过编译，因为这时 EOF 是未定义的。假定我们手工定义了EOF (当然，这是一种不好的做法):</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> EOP -1</span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">register</span> <span class="type">int</span> c;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((c = getchar()) != EOF)</span><br><span class="line">		<span class="built_in">putchar</span> (c) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个程序在许多系统中仍然能够运行，但是在某些系统运行起来却慢得多。这是为什么?</p>
+<p>函数调用需要花费较长的程序执行时间，因此getchar经常被实现为宏。这个宏在stdio.h头文件中定义，因此如果一个程序没有包含 stdio.h 头文件，编译器对 getchar 的定义就一无所知。 在这种情况下，编译器会假定 getchar 是一个返回类型为整型的函数。</p>
+<p>实际上，很多C语言实现在库文件中都包括有 getchar 函数，原因部分是预防编程者粗心大意，部分是为了方便那些需要得到 getchar 地址的编程者。因此，程序中忘记包含 stdio.h 头文件的效果就是，在所有 getchar 宏出现的地方，都getchar 函数调用来替换 getchar 宏。这个程序之所以运行变慢，就是因为函数调用所导致的开销增多。同样的依据也完全适用于putchar 。</p>
+<p><strong>参考资料</strong>：<em>《C 缺陷与陷阱》</em></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">GreenSeaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/05%20%E5%BA%93%E5%87%BD%E6%95%B0/">https://yuanweize.github.io/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/05 库函数/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuanweize.github.io" target="_blank">HExLL</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a><a class="post-meta__tags" href="/tags/c-traps-and-pitfalls/">c-traps-and-pitfalls</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/04%20%E8%BF%9E%E6%8E%A5/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">04 连接</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/07%20%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7%E7%BC%BA%E9%99%B7/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">07 可移植性缺陷</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/03%20%E8%AF%AD%E4%B9%89%E9%99%B7%E9%98%B1/" title="03 语义陷阱"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 15-08-2022</div><div class="title">03 语义陷阱</div></div></a></div><div><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/01%20%E8%AF%8D%E6%B3%95%E9%99%B7%E9%98%B1/" title="01 词法陷阱"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 15-08-2022</div><div class="title">01 词法陷阱</div></div></a></div><div><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/02%20%E8%AF%AD%E6%B3%95%E9%99%B7%E9%98%B1/" title="02 语法陷阱"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 15-08-2022</div><div class="title">02 语法陷阱</div></div></a></div><div><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/04%20%E8%BF%9E%E6%8E%A5/" title="04 连接"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 15-08-2022</div><div class="title">04 连接</div></div></a></div><div><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/07%20%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7%E7%BC%BA%E9%99%B7/" title="07 可移植性缺陷"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 15-08-2022</div><div class="title">07 可移植性缺陷</div></div></a></div><div><a href="/2022/08/15/C-CrashCourse/c-traps-and-pitfalls/08%20%E5%BB%BA%E8%AE%AE/" title="08 建议"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 15-08-2022</div><div class="title">08 建议</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenSeaa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">801</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">70</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">69</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanweize"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuanweize" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:info@hktse.cz" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E9%99%B7%E9%98%B1%E4%B8%8E%E7%BC%BA%E9%99%B7-%EF%BC%88%E4%BA%94%EF%BC%89-%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">[C 陷阱与缺陷]  （五）  库函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E5%BA%93%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">一  库函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%94%E5%9B%9E%E6%95%B4%E6%95%B0%E7%9A%84-getchar-%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 返回整数的 getchar 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9B%B4%E6%96%B0%E9%A1%BA%E5%BA%8F%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 更新顺序文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%BC%93%E5%86%B2%E8%BE%93%E5%87%BA-%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.缓冲输出 与内存分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8errno%E6%A3%80%E6%B5%8B%E9%94%99%E8%AF%AF"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 使用errno检测错误</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%BA%93%E5%87%BD%E6%95%B0-signal"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. 库函数 signal</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-number">1.2.</span> <span class="toc-text">练习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A05-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">练习5-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A05-2"><span class="toc-number">1.2.2.</span> <span class="toc-text">练习5-2</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C-CrashCourse/c-games/%E7%8C%9C%E6%95%B0%E5%AD%97/" title="猜数字">猜数字</a><time datetime="2022-08-14T22:45:19.000Z" title="发表于 15-08-2022 00:45:19">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C-CrashCourse/c-mordern-approch/02-C%E8%AF%AD%E8%A8%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="02-C语言基本概念">02-C语言基本概念</a><time datetime="2022-08-14T22:45:19.000Z" title="发表于 15-08-2022 00:45:19">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C-CrashCourse/c-mordern-approch/01-C%E8%AF%AD%E8%A8%80%E6%A6%82%E8%AE%BA/" title="01-C语言概论">01-C语言概论</a><time datetime="2022-08-14T22:45:19.000Z" title="发表于 15-08-2022 00:45:19">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C-CrashCourse/c-mordern-approch/03-C%E8%AF%AD%E8%A8%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="03-C语言基本概念">03-C语言基本概念</a><time datetime="2022-08-14T22:45:19.000Z" title="发表于 15-08-2022 00:45:19">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C-CrashCourse/c-mordern-approch/04-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="04-格式化输入输出">04-格式化输入输出</a><time datetime="2022-08-14T22:45:19.000Z" title="发表于 15-08-2022 00:45:19">15-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By GreenSeaa</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
