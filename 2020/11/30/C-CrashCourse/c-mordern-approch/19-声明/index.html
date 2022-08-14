@@ -1,0 +1,387 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>19-声明 | HExLL</title><meta name="keywords" content="C语言,c-mordern-approch"><meta name="author" content="GreenSeaa"><meta name="copyright" content="GreenSeaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="声明 Wherever there is modularity there is the potential for misunderstanding: Hiding information implies a need to check communication. [^1] 目录  [TOC] 声明  零  前言 声明在 C 语言编程中起着核心的作用。通过声明变量和函数，可以检查程序潜在的错误">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19-声明">
+<meta property="og:url" content="https://yuanweize.github.io/2020/11/30/C-CrashCourse/c-mordern-approch/19-%E5%A3%B0%E6%98%8E/index.html">
+<meta property="og:site_name" content="HExLL">
+<meta property="og:description" content="声明 Wherever there is modularity there is the potential for misunderstanding: Hiding information implies a need to check communication. [^1] 目录  [TOC] 声明  零  前言 声明在 C 语言编程中起着核心的作用。通过声明变量和函数，可以检查程序潜在的错误">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2020-11-30T07:40:14.000Z">
+<meta property="article:modified_time" content="2022-08-14T23:03:56.948Z">
+<meta property="article:author" content="GreenSeaa">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="c-mordern-approch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2020/11/30/C-CrashCourse/c-mordern-approch/19-%E5%A3%B0%E6%98%8E/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"SW7OVVVFHX","apiKey":"5d05023a8579462e72ea704e4f43cf3f","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '19-声明',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '15-08-2022 01:03:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">801</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">70</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">70</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HExLL</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">19-声明</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-30T07:40:14.000Z" title="发表于 30-11-2020 08:40:14">30-11-2020</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-14T23:03:56.948Z" title="更新于 15-08-2022 01:03:56">15-08-2022</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/C-CrashCourse/">C-CrashCourse</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80/C-CrashCourse/c-mordern-approch/">c-mordern-approch</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="19-声明"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="声明-2">声明</h2>
+<p><em>Wherever there is modularity there is the potential for misunderstanding: Hiding information implies a need to check communication.</em> [^1]</p>
+<h2 id="目录-20">目录</h2>
+<hr>
+<p>[TOC]</p>
+<h2 id="声明-3">声明</h2>
+<hr>
+<h3 id="零-前言-9">零  前言</h3>
+<p>声明在 C 语言编程中起着核心的作用。通过声明变量和函数，可以检查程序潜在的错误以及把程序翻译成目标代码两方面为编译器提供至关重要的信息。</p>
+<h3 id="一-声明的语法">一  声明的语法</h3>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">声明说明符 声明符;</span><br></pre></td></tr></table></figure>
+<p><strong>声明说明符</strong>（declaration specifier）：描述声明的变量或函数的性质。<strong>声明符</strong>（declarator）给出了它们单独名字，并且提供了关于其他性质的额外信息。</p>
+<p>声明说明符分为以下 3 大类：</p>
+<ul>
+<li><strong>存储类型</strong>。<code>auto</code>,<code>static</code>,<code>extern</code>和<code>register</code>。在声明中最多可以出现<strong>一种</strong>存储类型。</li>
+<li><strong>类型限定符</strong>。C89 ：<code>const</code>,<code>volatile</code> 。C99：<code>restrict</code>。声明可以包含<strong>多个</strong>类型限定符。</li>
+<li><strong>类型说明符</strong>。关键字 int, double, char 等。类型说明符也包含结构，联合和枚举。</li>
+</ul>
+<p>C99 中还有一种说明符，<strong>函数说明符</strong>，它只用于函数声明。这类说明符只有一个：<code>inline</code></p>
+<p>声明符包括<strong>标识符</strong>，可以组合<code>*</code>, <code>[]</code>, <code>()</code></p>
+<p>一起看一些说明这些规则的例子：</p>
+<p><img src="https://hairrrrr.github.io/assets/2020-11-30-40.png" alt=""></p>
+<h3 id="二-存储类型">二  存储类型</h3>
+<p>这一部分集中讨论<strong>变量</strong>的存储类型。</p>
+<p><strong>块</strong>（block），表示函数体或者复合语句（可以理解为使用花括号的地方）。C99 中，选择语句和循环语句也被视为块，尽管本质上有些区别。</p>
+<h4 id="1-变量的性质">1. 变量的性质</h4>
+<p>C 程序中的每个变量都具有以下 3 个性质：</p>
+<ul>
+<li>
+<p><strong>存储期限</strong>。变量的存储期限决定了为变量预留和内存被释放的时间。</p>
+</li>
+<li>
+<p><strong>自动存储期限</strong>：变量在所属块被执行时获得内存单元，并在程序终止时释放内存单元，从而导致变量失去值。</p>
+<ul>
+<li><strong>静态存储期限</strong>：程序运行期间占有同一个的存储单元，也就允许变量无限期地保留它的值。</li>
+</ul>
+</li>
+<li>
+<p><strong>作用域</strong>。变量的作用域是指可以引用变量的那部分程序文本。</p>
+<ul>
+<li><strong>块作用域</strong>：变量从声明的地方一直到所在块的末尾都是可见的。</li>
+<li><strong>文件作用域</strong>：变量从声明的地方一直到所在文件的末尾都是可见的。</li>
+</ul>
+</li>
+<li>
+<p><strong>链接</strong>。变量的链接确定了程序的不同部分可以共享此变量的范围。</p>
+<ul>
+<li><strong>外部链接</strong>：变量可以被程序中的几个（或全部）文件共享。</li>
+<li><strong>内部链接</strong>：变量只能属于单独的一个文件，但是此文件中的函数可以共享这个变量。</li>
+<li><strong>无连接</strong>：变量属于单独一个函数，而且根本不能被共享。</li>
+</ul>
+</li>
+</ul>
+<p>变量的默认存储期限，作用域和链接都依赖于变量声明的位置：</p>
+<ul>
+<li>在块内声明的变量（如图）</li>
+<li>在程序外层（任意块外部）声明的变量（如图）</li>
+</ul>
+<p><img src="https://hairrrrr.github.io/assets/2020-11-30-41.png" alt=""></p>
+<h4 id="2-auto-存储类型">2. <code>auto</code> 存储类型</h4>
+<p><code>auto</code>存储类型只对属于块的变量有效。auto 变量具有自动存储期限，块作用域，无链接。auto 存储类型几乎从来不用明确的指明，因为在块内部声明的变量，它是默认的。</p>
+<h4 id="3-static-存储类型">3. <code>static</code>  存储类型</h4>
+<p><code>static</code>作用于块外部和块内部的变量效果不同。如图：</p>
+<p><img src="https://hairrrrr.github.io/assets/2020-11-30-42.png" alt=""></p>
+<p>下面的例子中，函数 f1 和 f2 可以访问变量 i，但是其他文件中的函数不可以：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">f1</span><span class="params">()</span>&#123;</span><br><span class="line">    ...;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">f2</span><span class="params">()</span>&#123;</span><br><span class="line">    ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>static</code>的此用法可以用来实现一种称为<strong>信息隐藏</strong>的技术。</p>
+<p>块内声明的 static 变量在程序执行期间驻留在同意存储单元内。和每次程序离开所在块就会丢失值的自动变量不同， static 变量会无限期地保留值。static 变量具有以下性质：</p>
+<ul>
+<li>块内声明的 <code>static</code> 变量只在程序执行前进行一次初始化，而 <code>auto</code> 变量则会在每次出现时进行初始化。（当然，假设它有初始化式）</li>
+<li>含有 static 变量的函数全部调用共享这个 static 变量。</li>
+<li>虽然函数不应该返回指向 <code>auto</code>变量的指针，但是函数返回指向<code>static</code>变量的指针是没有错误的。</li>
+</ul>
+<p>声明函数中的一个变量为 static，这样做允许函数在“隐藏区域”的调用之间保留信息。隐藏区域是程序其他部分无法访问到的地方。思考下列函数：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="title function_">digit_to_hex_char</span><span class="params">(<span class="type">int</span> digit)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> hex_chars[<span class="number">16</span>] = <span class="string">&quot;0123456789ABCDEF&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> hex_chars[digit];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次调用 digit_to_hex_char 函数时，都会把字符串字面量&quot;0123456789ABCDEF&quot;赋值给数组 hex_chars[16] 来对其初始化。现在，把数组设为 static：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="title function_">digit_to_hex_char</span><span class="params">(<span class="type">int</span> digit)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">char</span> hex_chars[<span class="number">16</span>] = <span class="string">&quot;0123456789ABCDEF&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> hex_chars[digit];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于 static 变量只进行一次初始化，这样就改进了 digit_to_hex_char 函数的速度。</p>
+<h4 id="4-extern存储类型">4. <code>extern</code>存储类型</h4>
+<p><code>extern</code> 存储类型可以使几个源文件可以共享同一个变量。前面我们也讲过它，这里不再重复。</p>
+<p>下列声明给编译器提供的信息是 i 是 int 型变量：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> i;</span><br></pre></td></tr></table></figure>
+<p>但是这样不会导致编译器为变量 i 分配存储单元。用 C 的术语来说，上述声明不是变量 i 的定义，他只是提示编译器需要访问定义在别处的变量。（可能稍后在同一文件中，更常见的是在另一个文件中。）变量在程序中可以有多次声明，但是定义只能有一次。</p>
+<p>对变量进行初始化的 extern 声明是变量的定义。例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> i = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>等效于：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>extern 声明中的变量始终具有静态存储期限。变量的作用域依赖于声明的位置。如图：</p>
+<p><img src="https://hairrrrr.github.io/assets/2020-11-30-43.png" alt=""></p>
+<p>确定 extern 型变量的链接有一定难度。如果变量在文件中较早的位置（任何函数外部）声明为 static ，那么它具有内部链接；否则（通常情况下），变量具有外部链接。</p>
+<p>如何理解上面这段话呢，请看下面的程序：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">extern</span> <span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">	n++;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>编译运行这个程序，没有编译错误和链接错误。程序执行结束，n 会被增加 1 。</p>
+<p>如果我们在另一个文件的函数中想访问 n：</p>
+<p><strong>file1.c</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">	</span><br><span class="line">	f();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>file2.c</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">extern</span> <span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">	n++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行这个程序，也没有编译错误和链接错误。程序执行结束，n 会被增加 1 。</p>
+<p><strong>这时，n 具有外部链接</strong></p>
+<p>我们对程序稍作修改：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">extern</span> <span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">	n++;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> n = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>编译运行这个程序，出现链接错误。我们需要将 n 的定义放在调用前：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">extern</span> <span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">	n++;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行这个程序，没有编译错误和链接错误。程序执行结束，n 会被增加 1 。</p>
+<p>这时，如果我们想在另一个文件中访问 n，可以实现吗？</p>
+<p><strong>file1.c</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">	n++;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>file2.c</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">f</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">extern</span> <span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">	n++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行这个程序，出现链接错误。</p>
+<p><strong>此时，n 具有内部链接</strong>。</p>
+<h4 id="5-register-存储类型">5. <code>register</code> 存储类型</h4>
+<p>声明变量具有<code>register</code>类型就要求编译器把变量存储在<strong>寄存器</strong>中，而不是像其他变量一样保留在内存中。（寄存器是驻留在 计算机 CPU 中的存储单元。存储在寄存器中的数据会比存储在普通内存中的数据访问和更新速度更快。指明变量的存储类型是 register 是一种<strong>请求</strong>，而不是命令。编译器可以选择把 register 类型的变量存储在内存中。</p>
+<p>register 存储类型只对声明在块内的变量有效。register 变量具有和 auto 变量一样的存储期限，作用域和链接。但是，由于<strong>寄存器没有地址</strong>，所以对 register 变量取地址<code>&amp;</code>是非法的。即使编译器选择将其存储在内存中，这一限制仍然适用。</p>
+<p>register 存储类型最好用于需要<strong>频繁进行访问或更新</strong>的变量。例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">register</span> <span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">    sum += a[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在 register <strong>不像以前那么流行</strong>了。当今的编译器比早期的 C 语言编译器复杂多了，许多编译器可以<strong>自动确定</strong>哪些变量保存在寄存器中可以获得最大好处。</p>
+<h4 id="6-函数的存储类型">6. 函数的存储类型</h4>
+<p>函数声明或定义存储类型选项只有：<code>extern</code>和 <code>static</code></p>
+<p>在函数声明开始处的单词<code>extern</code>说明函数具有外部链接，也就是允许其他文件调用此函数（默认情况下）；<code>static</code>说明是内部链接，也就是说只有在定义函数的文件内调用此函数。思考下面的函数声明：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span> i)</span>;<span class="comment">// same as: int f(int i); </span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">g</span><span class="params">(<span class="type">int</span> i)</span>;</span><br></pre></td></tr></table></figure>
+<p>把 g 声明为 static 不能完全阻止在别的文件中对它的调用，通过<strong>函数指针</strong>进行间接调用仍然是可能的。</p>
+<p>使用 static 的好处：</p>
+<ul>
+<li><strong>更容易维护</strong>。把函数声明为 static 存储类型保证在函数定义出现的文件之外函数 f 都是不可见的。因此，以后修改程序的人可以知道对函数 f 的变化不会影响其他文件中的函数。（另一个文件中如果传入了指向函数 f 的指针，它可能会收到函数 f 变化的影响。幸运的是，这种问题很容易通过检查定义函数 f 的文件来发现，因为传递 f 的函数一定也定义在此文件中。）</li>
+<li><strong>减少了“名字空间污染”</strong>。用于声明 static 的函数具有内部链接，所以可以在其他文件中重新使用这些函数名。虽然我们不太可能会为一些其他目的故意使用相同的函数名，但是在大规模程序中这种现象是难以避免的。</li>
+</ul>
+<h3 id="三-类型限定符">三  类型限定符</h3>
+<p>C 语言中一共有两种类型限定符：<code>const</code>和<code>volatile</code>(C99 中还有第三种：<code>restrict</code>，它只用于指针。)因为 <code>volatile</code>只用于底层编程中，我们会在后面的章节中进行讨论。</p>
+<p><code>const</code>用来声明一些类似于变量的对象。但这些变量是“只读”的。程序可以访问 const 型对象的值，但是无法改变它的值。例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> n = <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> a[] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>把对象声明为 const 有以下几个好处：</p>
+<ul>
+<li><strong>const 是文档格式</strong>。声明对象是 const 类型可以提示阅读程序的人，该对象的值不会改变。</li>
+<li><strong>编译器可以检查程序没有特意地试图改变该对象的值</strong>。</li>
+</ul>
+<p>const 与 #define 之间的差异：</p>
+<ul>
+<li>
+<p><code>#define</code>指令为数值，字符或字符串常量创建名字；<code>const</code>可用于产生任何类型的只读对象，包括数组，指针，结构或联合。</p>
+</li>
+<li>
+<p>const 对象遵循与变量相同的作用域规则；#define 创建的常量不受这些规则的限制。特别是，不能用 #define 创建具有块作用域的常量。</p>
+</li>
+<li>
+<p>和宏的值不同，const 对象的值可以在调试器中看到。</p>
+</li>
+<li>
+<p>不同于宏，<strong>const 对象的值不可用于常量表达式</strong>。比如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> n = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> a[n]; <span class="comment">//wrong</span></span><br></pre></td></tr></table></figure>
+<p>在 C99 中，如果 a 具有自动存储期限，那么这个例子是合法的——它会被视为变长数组；但是如果 a 具有静态存储期限，那么这个例子是不合法的。</p>
+</li>
+<li>
+<p>对 const 对象应用取地址运算符<code>&amp;</code>是合法的，因为它有地址。宏没有地址。</p>
+</li>
+</ul>
+<h3 id="四-声明符">四  声明符</h3>
+<p>声明符包含标识符，符号（<code>*</code>,<code>[]</code>,<code>()</code>）</p>
+<h4 id="1-解释复杂声明">1. 解释复杂声明</h4>
+<p>下面这个声明符是什么意思呢？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *(*x[<span class="number">10</span>])(<span class="type">void</span>);</span><br></pre></td></tr></table></figure>
+<p>理解声明符的规则：</p>
+<ul>
+<li><strong>从内向外读声明符</strong>。定位声明的标识符，并且从此处开始解释声明。</li>
+<li><strong>在做选择时，使用使<code>[]</code>和<code>()</code>优先于<code>*</code></strong>。</li>
+</ul>
+<p>先看一些简单的声明：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *ap[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<p>ap 是标识符，[] 优先级高于 *，所以 ap 是指针数组。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">float</span> *<span class="title function_">fp</span><span class="params">(<span class="type">float</span>)</span>; </span><br></pre></td></tr></table></figure>
+<p>fp 是标识符，() 优先于 *，所以 fp 是返回指针的函数。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> (*pf)(<span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+<p>由于 *pf 包含在圆括号内，所以 pf 一定是一个函数指针，此函数返回值类型为 void ，参数为 int 类型。</p>
+<p>再来看前面的这个声明：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> *(*x[<span class="number">10</span>])(<span class="type">void</span>);</span><br></pre></td></tr></table></figure>
+<p>找到 x，<code>x[10]</code>表示数组，<code>*x[10]</code>表示指针数组，<code>(*[x10])</code>表示这是一个元素都是指向函数的指针数组，此函数返回值类型是 <code>int*</code> ，没有参数。</p>
+<h3 id="五-初始化式">五  初始化式</h3>
+<p>初始化式我们并不陌生，现在我们来看一些控制初始化式的额外规则：</p>
+<ul>
+<li>
+<p>具有静态存储期限的变量的初始化式必须是常量：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> FIRST 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LAST 100</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> i = LAST - FIRST + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果变量具有自动存储期限，那么它的初始化式不需要式常量：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span> i)</span>&#123;</span><br><span class="line">    <span class="type">int</span> last = n - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>包含在花括号中的数组，结构和联合的初始化式必须只包含常量表达式，允许有变量或函数调用：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> N 2</span></span><br><span class="line"><span class="type">int</span> powers[<span class="number">5</span>] = &#123;<span class="number">1</span>, N, N * N, N * N * N, N * N * N * N&#125;;</span><br></pre></td></tr></table></figure>
+<p>C99 中，仅当变量具有静态存储期限时，这一限制才生效。</p>
+</li>
+<li>
+<p>自动类型的结构或联合的初始化式可以是另一个结构或联合：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span> <span class="title">part2</span> =</span> part1;</span><br></pre></td></tr></table></figure>
+<p>初始化式不一定非要是变量。比如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span> <span class="title">part2</span> =</span> *p;<span class="comment">//p 指向 struct part 类型变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">part</span> <span class="title">part2</span> =</span> f(part1); <span class="comment">// f 返回值为 struct part 类型 </span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="1-未初始化的变量">1. 未初始化的变量</h4>
+<p>变量的默认初始化依赖于变量的<strong>存储类型</strong>：</p>
+<ul>
+<li>具有<strong>自动存储期限</strong>的变量没有默认初始值。不能预测自动变量的初始值，每次变量变为有效时只可能不同。</li>
+<li>具有<strong>静态存储期限</strong>的变量默认情况下为 0 。整型变量初始化为 0，符点变量初始化为 0.0，指针初始化为 NULL（空指针）。</li>
+</ul>
+<p>出于书写风格和可读性的考虑，<strong>最好为静态类型的变量提供初始化式</strong>。</p>
+<h3 id="六-内联函数（C99）">六  内联函数（C99）</h3>
+<p>略</p>
+<p>[^1]: 模块是误解之源；信息隐藏预示沟通的必要。<a target="_blank" rel="noopener" href="https://epigrams-on-programming.readthedocs.io/zh_CN/latest/epigrams.html">Epigrams on Programming 编程警句 </a></p>
+<p><em>参考资料：《C语言程序设计：现代方法》</em></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">GreenSeaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2020/11/30/C-CrashCourse/c-mordern-approch/19-%E5%A3%B0%E6%98%8E/">https://yuanweize.github.io/2020/11/30/C-CrashCourse/c-mordern-approch/19-声明/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuanweize.github.io" target="_blank">HExLL</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a><a class="post-meta__tags" href="/tags/c-mordern-approch/">c-mordern-approch</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/15-%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">15-预处理器</div></div></a></div><div class="next-post pull-right"><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/22-%E8%BE%93%E5%87%BA&amp;%E8%BE%93%E5%87%BA/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">22-输出&amp;输出</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/01-C%E8%AF%AD%E8%A8%80%E6%A6%82%E8%AE%BA/" title="01-C语言概论"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 30-11-2020</div><div class="title">01-C语言概论</div></div></a></div><div><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/04-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="04-格式化输入输出"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 30-11-2020</div><div class="title">04-格式化输入输出</div></div></a></div><div><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/03-C%E8%AF%AD%E8%A8%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="03-C语言基本概念"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 30-11-2020</div><div class="title">03-C语言基本概念</div></div></a></div><div><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/05-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/" title="05-基本类型"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 30-11-2020</div><div class="title">05-基本类型</div></div></a></div><div><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/02-C%E8%AF%AD%E8%A8%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="02-C语言基本概念"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 30-11-2020</div><div class="title">02-C语言基本概念</div></div></a></div><div><a href="/2020/11/30/C-CrashCourse/c-mordern-approch/06-%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="06-表达式"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 30-11-2020</div><div class="title">06-表达式</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenSeaa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">801</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">70</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">70</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanweize"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuanweize" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:info@hktse.cz" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E-2"><span class="toc-number">1.</span> <span class="toc-text">声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95-20"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E-3"><span class="toc-number">3.</span> <span class="toc-text">声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6-%E5%89%8D%E8%A8%80-9"><span class="toc-number">3.1.</span> <span class="toc-text">零  前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E5%A3%B0%E6%98%8E%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">一  声明的语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">二  存储类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8F%98%E9%87%8F%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">3.3.1.</span> <span class="toc-text">1. 变量的性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-auto-%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.2.</span> <span class="toc-text">2. auto 存储类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-static-%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.3.</span> <span class="toc-text">3. static  存储类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-extern%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.4.</span> <span class="toc-text">4. extern存储类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-register-%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.5.</span> <span class="toc-text">5. register 存储类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.6.</span> <span class="toc-text">6. 函数的存储类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E7%B1%BB%E5%9E%8B%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="toc-number">3.4.</span> <span class="toc-text">三  类型限定符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-%E5%A3%B0%E6%98%8E%E7%AC%A6"><span class="toc-number">3.5.</span> <span class="toc-text">四  声明符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%A7%A3%E9%87%8A%E5%A4%8D%E6%9D%82%E5%A3%B0%E6%98%8E"><span class="toc-number">3.5.1.</span> <span class="toc-text">1. 解释复杂声明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%BC%8F"><span class="toc-number">3.6.</span> <span class="toc-text">五  初始化式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">3.6.1.</span> <span class="toc-text">1. 未初始化的变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%EF%BC%88C99%EF%BC%89"><span class="toc-number">3.7.</span> <span class="toc-text">六  内联函数（C99）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C%E8%AF%AD%E8%A8%80%E4%B8%8EC-%E5%AD%A6%E4%B9%A0/" title="C语言与C++学习">C语言与C++学习</a><time datetime="2022-08-14T22:39:16.000Z" title="发表于 15-08-2022 00:39:16">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/type/" title="type">type</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/tty/" title="tty">tty</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/unalias/" title="unalias">unalias</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/umask/" title="umask">umask</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By GreenSeaa</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
