@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>strace | HExLL-数字迷雾</title><meta name="keywords" content="Linux,Linux-command"><meta name="author" content="GreenSeaa"><meta name="copyright" content="GreenSeaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="strace 跟踪系统调用和信号 补充说明 strace命令 是一个集诊断、调试、统计与一体的工具，我们可以使用strace对应用的系统调用和信号传递的跟踪结果来对应用进行分析，以达到解决问题或者是了解应用工作过程的目的。当然strace与专业的调试工具比如说gdb之类的是没法相比的，因为它不是一个专业的调试器。 strace的最简单的用法就是执行一个指定的命令，在指定的命令结束之后它也就退出了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="strace">
+<meta property="og:url" content="https://yuanweize.github.io/2022/08/14/Linux-command/strace/index.html">
+<meta property="og:site_name" content="HExLL-数字迷雾">
+<meta property="og:description" content="strace 跟踪系统调用和信号 补充说明 strace命令 是一个集诊断、调试、统计与一体的工具，我们可以使用strace对应用的系统调用和信号传递的跟踪结果来对应用进行分析，以达到解决问题或者是了解应用工作过程的目的。当然strace与专业的调试工具比如说gdb之类的是没法相比的，因为它不是一个专业的调试器。 strace的最简单的用法就是执行一个指定的命令，在指定的命令结束之后它也就退出了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-08-14T20:29:32.000Z">
+<meta property="article:modified_time" content="2022-08-14T21:56:32.994Z">
+<meta property="article:author" content="GreenSeaa">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Linux-command">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2022/08/14/Linux-command/strace/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-WD3QXC5CQE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-WD3QXC5CQE');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"SW7OVVVFHX","apiKey":"5d05023a8579462e72ea704e4f43cf3f","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'strace',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '14-08-2022 23:56:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">803</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">72</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HExLL-数字迷雾</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">strace</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T20:29:32.000Z" title="发表于 14-08-2022 22:29:32">14-08-2022</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-14T21:56:32.994Z" title="更新于 14-08-2022 23:56:32">14-08-2022</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux-command/">Linux-command</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="strace"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>strace</h1>
+<p>跟踪系统调用和信号</p>
+<h2 id="补充说明-419">补充说明</h2>
+<p><strong>strace命令</strong> 是一个集诊断、调试、统计与一体的工具，我们可以使用strace对应用的系统调用和信号传递的跟踪结果来对应用进行分析，以达到解决问题或者是了解应用工作过程的目的。当然strace与专业的调试工具比如说gdb之类的是没法相比的，因为它不是一个专业的调试器。</p>
+<p>strace的最简单的用法就是执行一个指定的命令，在指定的命令结束之后它也就退出了。在命令执行的过程中，strace会记录和解析命令进程的所有系统调用以及这个进程所接收到的所有的信号值。</p>
+<h3 id="语法-407">语法</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">strace  [  -dffhiqrtttTvxx  ] [ -acolumn ] [ -eexpr ] ...</span><br><span class="line">    [ -ofile ] [-ppid ] ...  [ -sstrsize ] [ -uusername ]</span><br><span class="line">    [ -Evar=val ] ...  [ -Evar  ]...</span><br><span class="line">     [command [ arg ...  ] ]</span><br><span class="line"></span><br><span class="line">strace  -c  [ -eexpr ] ...  [ -Ooverhead ] [ -Ssortby ]</span><br><span class="line">    [ command [ arg...  ] ]</span><br></pre></td></tr></table></figure>
+<h3 id="选项-392">选项</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c 统计每一系统调用的所执行的时间,次数和出错的次数等.</span><br><span class="line">-d 输出strace关于标准错误的调试信息.</span><br><span class="line">-f 跟踪由fork调用所产生的子进程.</span><br><span class="line">-ff 如果提供-o filename,则所有进程的跟踪结果输出到相应的filename.pid中,pid是各进程的进程号.</span><br><span class="line">-F 尝试跟踪vfork调用.在-f时,vfork不被跟踪.</span><br><span class="line">-h 输出简要的帮助信息.</span><br><span class="line">-i 输出系统调用的入口指针.</span><br><span class="line">-q 禁止输出关于脱离的消息.</span><br><span class="line">-r 打印出相对时间关于,,每一个系统调用.</span><br><span class="line">-t 在输出中的每一行前加上时间信息.</span><br><span class="line">-tt 在输出中的每一行前加上时间信息,微秒级.</span><br><span class="line">-ttt 微秒级输出,以秒了表示时间.</span><br><span class="line">-T 显示每一调用所耗的时间.</span><br><span class="line">-v 输出所有的系统调用.一些调用关于环境变量,状态,输入输出等调用由于使用频繁,默认不输出.</span><br><span class="line">-V 输出strace的版本信息.</span><br><span class="line">-x 以十六进制形式输出非标准字符串</span><br><span class="line">-xx 所有字符串以十六进制形式输出.</span><br><span class="line">-a column 设置返回值的输出位置.默认 为40.</span><br><span class="line">-e expr 指定一个表达式,用来控制如何跟踪.格式：[qualifier=][!]value1[,value2]...</span><br><span class="line">qualifier只能是 trace,abbrev,verbose,raw,signal,read,write其中之一.value是用来限定的符号或数字.默认的 qualifier是 trace.感叹号是否定符号.例如:-eopen等价于 -e trace=open,表示只跟踪open调用.而-etrace!=open 表示跟踪除了open以外的其他调用.有两个特殊的符号 all 和 none. 注意有些shell使用!来执行历史记录里的命令,所以要使用\\.</span><br><span class="line">-e trace=set 只跟踪指定的系统 调用.例如:-e trace=open,close,rean,write表示只跟踪这四个系统调用.默认的为set=all.</span><br><span class="line">-e trace=file 只跟踪有关文件操作的系统调用.</span><br><span class="line">-e trace=process 只跟踪有关进程控制的系统调用.</span><br><span class="line">-e trace=network 跟踪与网络有关的所有系统调用.</span><br><span class="line">-e strace=signal 跟踪所有与系统信号有关的 系统调用</span><br><span class="line">-e trace=ipc 跟踪所有与进程通讯有关的系统调用</span><br><span class="line">-e abbrev=set 设定strace输出的系统调用的结果集.-v 等与 abbrev=none.默认为abbrev=all.</span><br><span class="line">-e raw=set 将指定的系统调用的参数以十六进制显示.</span><br><span class="line">-e signal=set 指定跟踪的系统信号.默认为all.如 signal=!SIGIO(或者signal=!io),表示不跟踪SIGIO信号.</span><br><span class="line">-e read=set 输出从指定文件中读出 的数据.例如: -e read=3,5</span><br><span class="line">-e write=set 输出写入到指定文件中的数据.</span><br><span class="line">-o filename 将strace的输出写入文件filename</span><br><span class="line">-p pid 跟踪指定的进程pid.</span><br><span class="line">-s strsize 指定输出的字符串的最大长度.默认为32.文件名一直全部输出.</span><br><span class="line">-u username 以username的UID和GID执行被跟踪的命令</span><br></pre></td></tr></table></figure>
+<h3 id="实例-296">实例</h3>
+<p><strong>追踪系统调用</strong></p>
+<p>现在我们做一个很简单的程序来演示strace的基本用法。这个程序的C语言代码如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">filename test.c</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;a);</span><br><span class="line">    printf(&quot;%09d\n&quot;, a);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们用<code>gcc -o test test.c</code>编译一下，得到一个可执行的文件test。然后用strace调用执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">strace ./test</span><br></pre></td></tr></table></figure>
+<p>执行期间会要求你输入一个整数，我们输入99，最后得到如下的结果：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// 直接执行test的结果</span><br><span class="line">oracle@orainst[orcl]:~ $./test</span><br><span class="line"></span><br><span class="line">// 执行的结果</span><br><span class="line">99</span><br><span class="line">000000099</span><br><span class="line"></span><br><span class="line">// 通过strace执行test的结果</span><br><span class="line">oracle@orainst[orcl]:~ $strace ./test</span><br><span class="line"></span><br><span class="line">// strace的trace结果</span><br><span class="line">execve(&quot;./test&quot;, [&quot;./test&quot;], [/* 41 vars */]) = 0</span><br><span class="line">uname(&#123;sys=&quot;Linux&quot;, node=&quot;orainst.desktop.mycompany.com&quot;, ...&#125;) = 0</span><br><span class="line">brk(0)                                  = 0x8078000</span><br><span class="line">fstat64(3, &#123;st_mode=S_IFREG|0644, st_size=65900, ...&#125;) = 0</span><br><span class="line">old_mmap(NULL, 65900, PROT_READ, MAP_PRIVATE, 3, 0) = 0xbf5ef000</span><br><span class="line">close(3)                                = 0</span><br><span class="line">open(&quot;/lib/tls/libc.so.6&quot;, O_RDONLY)    = 3</span><br><span class="line">read(3, &quot;\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0\200X\1&quot;..., 512) = 512</span><br><span class="line">fstat64(3, &#123;st_mode=S_IFREG|0755, st_size=1571692, ...&#125;) = 0</span><br><span class="line">old_mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xbf5ee000</span><br><span class="line">old_mmap(NULL, 1275340, PROT_READ|PROT_EXEC, MAP_PRIVATE, 3, 0) = 0xa02000</span><br><span class="line">old_mmap(0xb34000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED, 3, 0x132000) = 0xb34000</span><br><span class="line">old_mmap(0xb37000, 9676, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xb37000</span><br><span class="line">close(3)                                = 0</span><br><span class="line">set_thread_area(&#123;entry_number:-1 -&gt; 6, base_addr:0xbf5ee740, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1&#125;) = 0</span><br><span class="line">munmap(0xbf5ef000, 65900)               = 0</span><br><span class="line">fstat64(0, &#123;st_mode=S_IFCHR|0620, st_rdev=makedev(136, 0), ...&#125;) = 0</span><br><span class="line">mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xbf5ff000</span><br><span class="line">read(0, 99</span><br><span class="line">&quot;99\n&quot;, 1024)                   = 3</span><br><span class="line">fstat64(1, &#123;st_mode=S_IFCHR|0620, st_rdev=makedev(136, 0), ...&#125;) = 0</span><br><span class="line">mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xbf5fe000</span><br><span class="line">write(1, &quot;000000099\n&quot;, 10000000099</span><br><span class="line">)             = 10</span><br><span class="line">munmap(0xbf5fe000, 4096)                = 0</span><br><span class="line">exit_group(0)                           = ?</span><br></pre></td></tr></table></figure>
+<p>从trace结构可以看到，系统首先调用execve开始一个新的进行，接着进行些环境的初始化操作，最后停顿在”read(0,”上面，这也就是执行到了我们的scanf函数，等待我们输入数字呢，在输入完99之后，在调用write函数将格式化后的数值”000000099″输出到屏幕，最后调用exit_group退出进行，完成整个程序的执行过程。</p>
+<p><strong>跟踪信号传递</strong></p>
+<p>我们还是使用上面的那个test程序，来观察进程接收信号的情况。还是先<code>strace ./test</code>，等到等待输入的画面的时候不要输入任何东西，然后打开另外一个窗口，输入如下的命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">killall test</span><br></pre></td></tr></table></figure>
+<p>这时候就能看到我们的程序推出了，最后的trace结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">oracle@orainst[orcl]:~</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">strace ./test</span></span><br><span class="line"></span><br><span class="line">execve(&quot;./test&quot;, [&quot;./test&quot;], [/* 41 vars */]) = 0</span><br><span class="line">uname(&#123;sys=&quot;Linux&quot;, node=&quot;orainst.desktop.mycompany.com&quot;, ...&#125;) = 0</span><br><span class="line">brk(0)                                  = 0x9ae2000</span><br><span class="line">old_mmap(NULL, 65900, PROT_READ, MAP_PRIVATE, 3, 0) = 0xbf5ef000</span><br><span class="line">close(3)                                = 0</span><br><span class="line">open(&quot;/lib/tls/libc.so.6&quot;, O_RDONLY)    = 3</span><br><span class="line">read(3, &quot;\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0\200X\1&quot;..., 512) = 512</span><br><span class="line">fstat64(3, &#123;st_mode=S_IFREG|0755, st_size=1571692, ...&#125;) = 0</span><br><span class="line">old_mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xbf5ee000</span><br><span class="line">old_mmap(NULL, 1275340, PROT_READ|PROT_EXEC, MAP_PRIVATE, 3, 0) = 0x2e9000</span><br><span class="line">old_mmap(0x41b000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED, 3, 0x132000) = 0x41b000</span><br><span class="line">old_mmap(0x41e000, 9676, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x41e000</span><br><span class="line">close(3)                                = 0</span><br><span class="line">set_thread_area(&#123;entry_number:-1 -&gt; 6, base_addr:0xbf5ee740, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1&#125;) = 0</span><br><span class="line">munmap(0xbf5ef000, 65900)               = 0</span><br><span class="line">fstat64(0, &#123;st_mode=S_IFCHR|0620, st_rdev=makedev(136, 0), ...&#125;) = 0</span><br><span class="line">mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xbf5ff000</span><br><span class="line">read(0, 0xbf5ff000, 1024)               = ? ERESTARTSYS (To be restarted)</span><br><span class="line">--- SIGTERM (Terminated) @ 0 (0) ---</span><br><span class="line">+++ killed by SIGTERM +++</span><br></pre></td></tr></table></figure>
+<p>trace中很清楚的告诉你test进程”+++ killed by SIGTERM +++”。</p>
+<p><strong>系统调用统计</strong></p>
+<p>strace不光能追踪系统调用，通过使用参数-c，它还能将进程所有的系统调用做一个统计分析给你，下面就来看看strace的统计，这次我们执行带-c参数的strace：</p>
+<p>strace -c ./test</p>
+<p>最后能得到这样的trace结果：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">oracle@orainst[orcl]:~</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">strace -c ./test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">execve(&quot;./test&quot;, [&quot;./test&quot;], [/* 41 vars */]) = 0</span><br><span class="line"><span class="meta prompt_">% </span><span class="language-bash">time     seconds  usecs/call     calls    errors syscall</span></span><br><span class="line">------ ----------- ----------- --------- --------- ----------------</span><br><span class="line"> 45.90    0.000140           5        27        25 open</span><br><span class="line"> 34.43    0.000105           4        24        21 stat64</span><br><span class="line">  7.54    0.000023           5         5           old_mmap</span><br><span class="line">  2.62    0.000008           8         1           munmap</span><br><span class="line">  1.97    0.000006           6         1           uname</span><br><span class="line">  1.97    0.000006           2         3           fstat64</span><br><span class="line">  1.64    0.000005           3         2         1 read</span><br><span class="line">  1.31    0.000004           2         2           close</span><br><span class="line">  0.98    0.000003           3         1           brk</span><br><span class="line">  0.98    0.000003           3         1           mmap2</span><br><span class="line">  0.66    0.000002           2         1           set_thread_area</span><br><span class="line">------ ----------- ----------- --------- --------- ----------------</span><br><span class="line">100.00    0.000305                    68        47 total</span><br></pre></td></tr></table></figure>
+<p>这里很清楚的告诉你调用了那些系统函数，调用次数多少，消耗了多少时间等等这些信息，这个对我们分析一个程序来说是非常有用的。</p>
+<h3 id="常用参数说明">常用参数说明</h3>
+<p>除了-c参数之外，strace还提供了其他有用的参数给我们，让我们能很方便的得到自己想要的信息，下面就对那些常用的参数一一做个介绍。</p>
+<p><strong>重定向输出</strong></p>
+<p>参数-o用在将strace的结果输出到文件中，如果不指定-o参数的话，默认的输出设备是STDERR，也就是说使用”-o filename”和” 2&gt;filename”的结果是一样的。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这两个命令都是将strace结果输出到文件test.txt中</span></span><br><span class="line">strace -c -o test.txt ./test</span><br><span class="line">strace -c ./test  2&gt;test.txt</span><br></pre></td></tr></table></figure>
+<p><strong>对系统调用进行计时</strong></p>
+<p>strace可以使用参数-T将每个系统调用所花费的时间打印出来，每个调用的时间花销现在在调用行最右边的尖括号里面。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">oracle@orainst[orcl]:~</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">strace -T ./test</span></span><br><span class="line"></span><br><span class="line">// 这里只摘录部分结果</span><br><span class="line">read(0, 1</span><br><span class="line">&quot;1\n&quot;, 1024)                    = 2 &lt;2.673455&gt;</span><br><span class="line">fstat64(1, &#123;st_mode=S_IFCHR|0620, st_rdev=makedev(136, 0), ...&#125;) = 0 &lt;0.000014&gt;</span><br><span class="line">mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xbf5fe000 &lt;0.000017&gt;</span><br><span class="line">write(1, &quot;000000001\n&quot;, 10000000001</span><br><span class="line">)             = 10 &lt;0.000016&gt;</span><br><span class="line">munmap(0xbf5fe000, 4096)                = 0 &lt;0.000020&gt;</span><br><span class="line">exit_group(0)                           = ?</span><br></pre></td></tr></table></figure>
+<p><strong>系统调用的时间</strong></p>
+<p>这是一个很有用的功能，strace会将每次系统调用的发生时间记录下来，只要使用-t/tt/ttt三个参数就可以看到效果了，具体的例子可以自己去尝试。</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>输出样式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-t</td>
+<td>10:33:04 exit_group(0)</td>
+<td>输出结果精确到秒</td>
+</tr>
+<tr>
+<td>-tt</td>
+<td>10:33:48.159682 exit_group(0)</td>
+<td>输出结果精确到微妙</td>
+</tr>
+<tr>
+<td>-ttt</td>
+<td>1262169244.788478 exit_group(0)</td>
+<td>精确到微妙，而且时间表示为unix时间戳</td>
+</tr>
+</tbody>
+</table>
+<p><strong>截断输出</strong></p>
+<p>-s参数用于指定trace结果的每一行输出的字符串的长度，下面看看test程序中-s参数对结果有什么影响，现指定-s为20，然后在read的是是很我们输入一个超过20个字符的数字串</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">strace -s 20 ./test</span><br><span class="line"></span><br><span class="line">read(0, 2222222222222222222222222      // 我们输入的2一共有25个</span><br><span class="line">&quot;22222222222222222222&quot;..., 1024) = 26  // 而我们看到的结果中2只有20个</span><br></pre></td></tr></table></figure>
+<p><strong>trace一个现有的进程</strong></p>
+<p>strace不光能自己初始化一个进程进行trace，还能追踪现有的进程，参数-p就是取这个作用的，用法也很简单，具体如下。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">strace -p pid</span><br></pre></td></tr></table></figure>
+<h3 id="综合例子">综合例子</h3>
+<p>说了那么多的功能和参数，现在我们来一个实用点的，就是研究下Oracle的lgwr进程，看看这个进程是不是像文档所说的那样没3s钟写一次log文件，考虑到lgwr写日志的触发条件比较多，我们需要找一个空闲的Oracle实例做这个实验。</p>
+<p>我们先要得到lgwr进程的pid，运行下面的命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -ef|grep lgwr</span><br><span class="line"></span><br><span class="line">oracle    5912     1  0 Nov12 ?        00:14:56 ora_lgwr_orcl</span><br></pre></td></tr></table></figure>
+<p>得到lgwr的pid是5912，现在启动strace，然后将trace的几个输出到lgwr.txt文件中，执行下面的命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">strace -tt -s 10 -o lgwr.txt -p 5912</span><br></pre></td></tr></table></figure>
+<p>过一会之后停止strace，然后查看结果。由于输出的结果比较多，为了方便我们只看Oracle写入log文件时用的pwrite函数的调用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep pwrite\(20 lgwr.txt</span><br></pre></td></tr></table></figure>
+<p>等等，为什么grep的时候用的是”pwrite(2″呢？，因为我知道我这个机器打开的当前的log文件的句柄编号都是2开始的。具体查找方法是先使用下面的语句找出当前活动的日志文件都有哪些：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">select member, v$log.status from v$log, v$logfile</span><br><span class="line">where v$log.group#=v$logfile.group#;</span><br></pre></td></tr></table></figure>
+<p>得到</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">MEMBER                                             STATUS</span><br><span class="line">-------------------------------------------------- ----------------</span><br><span class="line">/db/databases/orcl/redo-01-a/redo-t01-g03-m1.log    INACTIVE</span><br><span class="line">/db/databases/orcl/redo-03-a/redo-t01-g03-m2.log    INACTIVE</span><br><span class="line">/db/databases/orcl/redo-02-a/redo-t01-g02-m1.log    CURRENT</span><br><span class="line">/db/databases/orcl/redo-04-a/redo-t01-g02-m2.log    CURRENT</span><br><span class="line">/db/databases/orcl/redo-01-a/redo-t01-g01-m1.log    INACTIVE</span><br><span class="line">/db/databases/orcl/redo-03-a/redo-t01-g01-m2.log    INACTIVE</span><br><span class="line">/db/databases/orcl/redo-02-a/redo-t01-g04-m1.log    INACTIVE</span><br><span class="line">/db/databases/orcl/redo-04-a/redo-t01-g04-m2.log    INACTIVE</span><br></pre></td></tr></table></figure>
+<p>然后到/proc中去找打开文件的句柄：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ll /proc/.5912/fd/</span><br></pre></td></tr></table></figure>
+<p>得到</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 18 -&gt; /db/databases/orcl/redo-01-a/redo-t01-g01-m1.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 19 -&gt; /db/databases/orcl/redo-03-a/redo-t01-g01-m2.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 20 -&gt; /db/databases/orcl/redo-02-a/redo-t01-g02-m1.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 21 -&gt; /db/databases/orcl/redo-04-a/redo-t01-g02-m2.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 22 -&gt; /db/databases/orcl/redo-01-a/redo-t01-g03-m1.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 23 -&gt; /db/databases/orcl/redo-03-a/redo-t01-g03-m2.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 24 -&gt; /db/databases/orcl/redo-02-a/redo-t01-g04-m1.log</span><br><span class="line">lrwx------    1 oracle   dba            64 Dec 30 10:55 25 -&gt; /db/databases/orcl/redo-04-a/redo-t01-g04-m2.log</span><br></pre></td></tr></table></figure>
+<p>现在能看到我机器当前日志文件的句柄分别是20和21。</p>
+<p>现在我们得到如下结果</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">11:13:55.603245 pwrite(20, &quot;\1\&quot;\0\0J!&quot;..., 1536, 4363264) = 1536</span><br><span class="line">11:13:55.603569 pwrite(21, &quot;\1\&quot;\0\0J!&quot;..., 1536, 4363264) = 1536</span><br><span class="line">11:13:55.606888 pwrite(20, &quot;\1\&quot;\0\0M!&quot;..., 1536, 4364800) = 1536</span><br><span class="line">11:13:55.607172 pwrite(21, &quot;\1\&quot;\0\0M!&quot;..., 1536, 4364800) = 1536</span><br><span class="line">11:13:55.607934 pwrite(20, &quot;\1\&quot;\0\0P!&quot;..., 1536, 4366336) = 1536</span><br><span class="line">11:13:55.608199 pwrite(21, &quot;\1\&quot;\0\0P!&quot;..., 1536, 4366336) = 1536</span><br><span class="line">11:13:55.610260 pwrite(20, &quot;\1\&quot;\0\0S!&quot;..., 1536, 4367872) = 1536</span><br><span class="line">11:13:55.610530 pwrite(21, &quot;\1\&quot;\0\0S!&quot;..., 1536, 4367872) = 1536</span><br><span class="line">11:14:00.602446 pwrite(20, &quot;\1\&quot;\0\0V!&quot;..., 1536, 4369408) = 1536</span><br><span class="line">11:14:00.602750 pwrite(21, &quot;\1\&quot;\0\0V!&quot;..., 1536, 4369408) = 1536</span><br><span class="line">11:14:00.606386 pwrite(20, &quot;\1\&quot;\0\0Y!&quot;..., 1536, 4370944) = 1536</span><br><span class="line">11:14:00.606676 pwrite(21, &quot;\1\&quot;\0\0Y!&quot;..., 1536, 4370944) = 1536</span><br><span class="line">11:14:00.607900 pwrite(20, &quot;\1\&quot;\0\0\\&quot;..., 1024, 4372480) = 1024</span><br><span class="line">11:14:00.608161 pwrite(21, &quot;\1\&quot;\0\0\\&quot;..., 1024, 4372480) = 1024</span><br><span class="line">11:14:00.608816 pwrite(20, &quot;\1\&quot;\0\0^!&quot;..., 1024, 4373504) = 1024</span><br><span class="line">11:14:00.609071 pwrite(21, &quot;\1\&quot;\0\0^!&quot;..., 1024, 4373504) = 1024</span><br><span class="line">11:14:00.611142 pwrite(20, &quot;\1\&quot;\0\0`!&quot;..., 1536, 4374528) = 1536</span><br><span class="line">11:14:00.611454 pwrite(21, &quot;\1\&quot;\0\0`!&quot;..., 1536, 4374528) = 1536</span><br><span class="line">11:14:05.602804 pwrite(20, &quot;\1\&quot;\0\0c!&quot;..., 1024, 4376064) = 1024</span><br><span class="line">11:14:05.603119 pwrite(21, &quot;\1\&quot;\0\0c!&quot;..., 1024, 4376064) = 1024</span><br><span class="line">11:14:05.607731 pwrite(20, &quot;\1\&quot;\0\0e!&quot;..., 1024, 4377088) = 1024</span><br><span class="line">11:14:05.608020 pwrite(21, &quot;\1\&quot;\0\0e!&quot;..., 1024, 4377088) = 1024</span><br><span class="line">11:14:05.608690 pwrite(20, &quot;\1\&quot;\0\0g!&quot;..., 1024, 4378112) = 1024</span><br><span class="line">11:14:05.608962 pwrite(21, &quot;\1\&quot;\0\0g!&quot;..., 1024, 4378112) = 1024</span><br><span class="line">11:14:05.611022 pwrite(20, &quot;\1\&quot;\0\0i!&quot;..., 1536, 4379136) = 1536</span><br><span class="line">11:14:05.611283 pwrite(21, &quot;\1\&quot;\0\0i!&quot;..., 1536, 4379136) = 1536</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">GreenSeaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2022/08/14/Linux-command/strace/">https://yuanweize.github.io/2022/08/14/Linux-command/strace/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuanweize.github.io" target="_blank">HExLL-数字迷雾</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Linux-command/">Linux-command</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/14/Linux-command/stat/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">stat</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/14/Linux-command/strings/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">strings</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/14/Linux-command/accept/" title="accept"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">accept</div></div></a></div><div><a href="/2022/08/14/Linux-command/ab/" title="ab"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">ab</div></div></a></div><div><a href="/2022/08/14/Linux-command/ack/" title="ack"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">ack</div></div></a></div><div><a href="/2022/08/14/Linux-command/alias/" title="alias"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">alias</div></div></a></div><div><a href="/2022/08/14/Linux-command/apk/" title="apk"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">apk</div></div></a></div><div><a href="/2022/08/14/Linux-command/apachectl/" title="apachectl"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">apachectl</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenSeaa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">803</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">72</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanweize"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuanweize" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:info@eurun.eu.org" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">strace</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E-419"><span class="toc-number">1.1.</span> <span class="toc-text">补充说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95-407"><span class="toc-number">1.1.1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-392"><span class="toc-number">1.1.2.</span> <span class="toc-text">选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-296"><span class="toc-number">1.1.3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.4.</span> <span class="toc-text">常用参数说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E4%BE%8B%E5%AD%90"><span class="toc-number">1.1.5.</span> <span class="toc-text">综合例子</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/31/6-%E7%94%A8%20Vue3%20%E5%92%8C%20Django%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE/" title="6-用 Vue3 和 Django 快速搭建前后端分离项目">6-用 Vue3 和 Django 快速搭建前后端分离项目</a><time datetime="2022-10-31T00:59:54.000Z" title="发表于 31-10-2022 01:59:54">31-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/30/3-%E6%94%BE%E5%BC%83%E7%BA%A0%E7%BB%93%E3%80%81%E6%8B%A5%E6%8A%B1%E5%A6%A5%E5%8D%8F%EF%BC%8C%E9%87%8D%E5%99%A8%E8%BD%BB%E7%94%A8%E5%B0%B1%E6%98%AF%E9%AB%98%E6%95%88@annote/" title="3-放弃纠结、拥抱妥协，重器轻用就是高效@annote">3-放弃纠结、拥抱妥协，重器轻用就是高效@annote</a><time datetime="2022-10-30T04:30:45.000Z" title="发表于 30-10-2022 05:30:45">30-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C%E8%AF%AD%E8%A8%80%E4%B8%8EC-%E5%AD%A6%E4%B9%A0/" title="C语言与C++学习">C语言与C++学习</a><time datetime="2022-08-14T22:39:16.000Z" title="发表于 15-08-2022 00:39:16">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/tty/" title="tty">tty</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/type/" title="type">type</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By GreenSeaa</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

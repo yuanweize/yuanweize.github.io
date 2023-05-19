@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>pvcreate | HExLL-数字迷雾</title><meta name="keywords" content="Linux,Linux-command"><meta name="author" content="GreenSeaa"><meta name="copyright" content="GreenSeaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="pvcreate 将物理硬盘分区初始化为物理卷 补充说明 pvcreate命令 用于将物理硬盘分区初始化为物理卷，以便LVM使用。 语法 pvcreate(选项)(参数) 选项 -f：强制创建物理卷，不需要用户确认；-u：指定设备的UUID；-y：所有的问题都回答“yes”；-Z：是否利用前4个扇区。 参数 物理卷：指定要创建的物理卷对应的设备文件名。 实例 查看磁盘信息： [root@local">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pvcreate">
+<meta property="og:url" content="https://yuanweize.github.io/2022/08/14/Linux-command/pvcreate/index.html">
+<meta property="og:site_name" content="HExLL-数字迷雾">
+<meta property="og:description" content="pvcreate 将物理硬盘分区初始化为物理卷 补充说明 pvcreate命令 用于将物理硬盘分区初始化为物理卷，以便LVM使用。 语法 pvcreate(选项)(参数) 选项 -f：强制创建物理卷，不需要用户确认；-u：指定设备的UUID；-y：所有的问题都回答“yes”；-Z：是否利用前4个扇区。 参数 物理卷：指定要创建的物理卷对应的设备文件名。 实例 查看磁盘信息： [root@local">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-08-14T20:29:32.000Z">
+<meta property="article:modified_time" content="2022-08-14T21:56:33.031Z">
+<meta property="article:author" content="GreenSeaa">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Linux-command">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2022/08/14/Linux-command/pvcreate/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-WD3QXC5CQE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-WD3QXC5CQE');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"SW7OVVVFHX","apiKey":"5d05023a8579462e72ea704e4f43cf3f","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'pvcreate',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '14-08-2022 23:56:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">803</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">72</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HExLL-数字迷雾</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">pvcreate</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T20:29:32.000Z" title="发表于 14-08-2022 22:29:32">14-08-2022</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-14T21:56:33.031Z" title="更新于 14-08-2022 23:56:33">14-08-2022</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux-command/">Linux-command</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">592</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="pvcreate"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>pvcreate</h1>
+<p>将物理硬盘分区初始化为物理卷</p>
+<h2 id="补充说明-333">补充说明</h2>
+<p><strong>pvcreate命令</strong> 用于将物理硬盘分区初始化为物理卷，以便LVM使用。</p>
+<h3 id="语法-326">语法</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pvcreate(选项)(参数)</span><br></pre></td></tr></table></figure>
+<h3 id="选项-313">选项</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-f：强制创建物理卷，不需要用户确认；</span><br><span class="line">-u：指定设备的UUID；</span><br><span class="line">-y：所有的问题都回答“yes”；</span><br><span class="line">-Z：是否利用前4个扇区。</span><br></pre></td></tr></table></figure>
+<h3 id="参数-230">参数</h3>
+<p>物理卷：指定要创建的物理卷对应的设备文件名。</p>
+<h3 id="实例-234">实例</h3>
+<p>查看磁盘信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# fdisk -l</span><br><span class="line">Disk /dev/hda: 41.1 GB, 41174138880 bytes</span><br><span class="line">255 heads, 63 sectors/track, 5005 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   id  System</span><br><span class="line">/dev/hda1   *           1          13      104391   83  Linux</span><br><span class="line">/dev/hda2              14        1288    10241437+  83  Linux</span><br><span class="line">/dev/hda3            1289        1925     5116702+  83  Linux</span><br><span class="line">/dev/hda4            1926        5005    24740100    5  Extended</span><br><span class="line">/dev/hda5            1926        2052     1020096   82  Linux swap / Solaris</span><br><span class="line">/dev/hda6            2053        2235     1469916   8e  Linux LVM</span><br><span class="line">/dev/hda7            2236        2418     1469916   8e  Linux LVM</span><br><span class="line">/dev/hda8            2419        2601     1469916   8e  Linux LVM</span><br><span class="line">/dev/hda9            2602        2784     1469916   8e  Linux LVM</span><br></pre></td></tr></table></figure>
+<p>检查有无 PV 在系统上，然后将<code>/dev/hda6</code>到<code>/dev/hda9</code>建立成为PV格式</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# pvscan</span><br><span class="line">No matching physical volumes found    #找不到任何的 PV 存在！</span><br></pre></td></tr></table></figure>
+<p>将6-9分区转成pv，注意大括号的用途：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# pvcreate /dev/hda&#123;6,7,8,9&#125;</span><br><span class="line">  Physical volume &quot;/dev/hda6&quot; successfully created</span><br><span class="line">  Physical volume &quot;/dev/hda7&quot; successfully created</span><br><span class="line">  Physical volume &quot;/dev/hda8&quot; successfully created</span><br><span class="line">  Physical volume &quot;/dev/hda9&quot; successfully created</span><br></pre></td></tr></table></figure>
+<p>这就分別表示每个 PV 的信息与系统所有 PV 的信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# pvscan</span><br><span class="line">  PV /dev/hda6         lvm2 [1.40 GB]</span><br><span class="line">  PV /dev/hda7         lvm2 [1.40 GB]</span><br><span class="line">  PV /dev/hda8         lvm2 [1.40 GB]</span><br><span class="line">  PV /dev/hda9         lvm2 [1.40 GB]</span><br><span class="line">  Total: 4 [5.61 GB] / in use: 0 [0   ] / in no VG: 4 [5.61 GB]</span><br></pre></td></tr></table></figure>
+<p>更详细的列示出系统上面每个 PV 信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# pvdisplay</span><br><span class="line">  &quot;/dev/hda6&quot; is a new physical volume of &quot;1.40 GB&quot;</span><br><span class="line">  --- NEW Physical volume ---</span><br><span class="line">  PV Name               /dev/hda6  #实际的 partition 分区名称</span><br><span class="line">  VG Name                          #因为尚未分配出去，所以空白！</span><br><span class="line">  PV Size               1.40 GB    #就是容量说明</span><br><span class="line">  Allocatable           NO         #是否已被分配，结果是 NO</span><br><span class="line">  PE Size (KByte)       0          #在此 PV 內的 PE 大小</span><br><span class="line">  Total PE              0          #共分割出几个 PE</span><br><span class="line">  free PE               0          #沒被 LV 用掉的 PE</span><br><span class="line">  Allocated PE          0          #尚可分配出去的 PE 数量</span><br><span class="line">  PV UUID               Z13Jk5-RCls-UJ8B-HzDa-Gesn-atku-rf2biN</span><br><span class="line">....(底下省略)....</span><br></pre></td></tr></table></figure>
+<p>删除物理卷：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# pvremove /dev/sdb2</span><br><span class="line">Labels on physical volume &quot;/dev/sdb2&quot; successfully wiped</span><br></pre></td></tr></table></figure>
+<p>修改物理卷属性：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# pvchange -x n /dev/sdb1    #禁止分配指定物理卷上的PE</span><br><span class="line">Physical volume &quot;/dev/sdb1&quot; changed  </span><br><span class="line">1 physical volume changed / 0 physical volumes not changed </span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">GreenSeaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2022/08/14/Linux-command/pvcreate/">https://yuanweize.github.io/2022/08/14/Linux-command/pvcreate/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuanweize.github.io" target="_blank">HExLL-数字迷雾</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Linux-command/">Linux-command</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/14/Linux-command/pvck/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">pvck</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/14/Linux-command/pvdisplay/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">pvdisplay</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/14/Linux-command/accept/" title="accept"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">accept</div></div></a></div><div><a href="/2022/08/14/Linux-command/ab/" title="ab"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">ab</div></div></a></div><div><a href="/2022/08/14/Linux-command/ack/" title="ack"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">ack</div></div></a></div><div><a href="/2022/08/14/Linux-command/alias/" title="alias"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">alias</div></div></a></div><div><a href="/2022/08/14/Linux-command/apk/" title="apk"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">apk</div></div></a></div><div><a href="/2022/08/14/Linux-command/apachectl/" title="apachectl"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">apachectl</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenSeaa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">803</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">72</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanweize"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuanweize" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:info@eurun.eu.org" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">pvcreate</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E-333"><span class="toc-number">1.1.</span> <span class="toc-text">补充说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95-326"><span class="toc-number">1.1.1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-313"><span class="toc-number">1.1.2.</span> <span class="toc-text">选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0-230"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-234"><span class="toc-number">1.1.4.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/31/6-%E7%94%A8%20Vue3%20%E5%92%8C%20Django%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE/" title="6-用 Vue3 和 Django 快速搭建前后端分离项目">6-用 Vue3 和 Django 快速搭建前后端分离项目</a><time datetime="2022-10-31T00:59:54.000Z" title="发表于 31-10-2022 01:59:54">31-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/30/3-%E6%94%BE%E5%BC%83%E7%BA%A0%E7%BB%93%E3%80%81%E6%8B%A5%E6%8A%B1%E5%A6%A5%E5%8D%8F%EF%BC%8C%E9%87%8D%E5%99%A8%E8%BD%BB%E7%94%A8%E5%B0%B1%E6%98%AF%E9%AB%98%E6%95%88@annote/" title="3-放弃纠结、拥抱妥协，重器轻用就是高效@annote">3-放弃纠结、拥抱妥协，重器轻用就是高效@annote</a><time datetime="2022-10-30T04:30:45.000Z" title="发表于 30-10-2022 05:30:45">30-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C%E8%AF%AD%E8%A8%80%E4%B8%8EC-%E5%AD%A6%E4%B9%A0/" title="C语言与C++学习">C语言与C++学习</a><time datetime="2022-08-14T22:39:16.000Z" title="发表于 15-08-2022 00:39:16">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/tty/" title="tty">tty</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/type/" title="type">type</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By GreenSeaa</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

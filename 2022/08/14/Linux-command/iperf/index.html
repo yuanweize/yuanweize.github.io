@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>iperf | HExLL-数字迷雾</title><meta name="keywords" content="Linux,Linux-command"><meta name="author" content="GreenSeaa"><meta name="copyright" content="GreenSeaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="iperf 网络性能测试工具 补充说明 iperf命令 是一个网络性能测试工具。iperf可以测试TCP和UDP带宽质量。iperf可以测量最大TCP带宽，具有多种参数和UDP特性。iperf可以报告带宽，延迟抖动和数据包丢失。利用iperf这一特性，可以用来测试一些网络设备如路由器，防火墙，交换机等的性能。 iperf分为两种版本，Unix&#x2F;Linux版和Windows版，Unix&#x2F;Linux版">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iperf">
+<meta property="og:url" content="https://yuanweize.github.io/2022/08/14/Linux-command/iperf/index.html">
+<meta property="og:site_name" content="HExLL-数字迷雾">
+<meta property="og:description" content="iperf 网络性能测试工具 补充说明 iperf命令 是一个网络性能测试工具。iperf可以测试TCP和UDP带宽质量。iperf可以测量最大TCP带宽，具有多种参数和UDP特性。iperf可以报告带宽，延迟抖动和数据包丢失。利用iperf这一特性，可以用来测试一些网络设备如路由器，防火墙，交换机等的性能。 iperf分为两种版本，Unix&#x2F;Linux版和Windows版，Unix&#x2F;Linux版">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-08-14T20:29:32.000Z">
+<meta property="article:modified_time" content="2022-08-14T21:56:32.418Z">
+<meta property="article:author" content="GreenSeaa">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Linux-command">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2022/08/14/Linux-command/iperf/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-WD3QXC5CQE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-WD3QXC5CQE');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"SW7OVVVFHX","apiKey":"5d05023a8579462e72ea704e4f43cf3f","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'iperf',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '14-08-2022 23:56:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">803</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">72</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HExLL-数字迷雾</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">iperf</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-14T20:29:32.000Z" title="发表于 14-08-2022 22:29:32">14-08-2022</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-14T21:56:32.418Z" title="更新于 14-08-2022 23:56:32">14-08-2022</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux-command/">Linux-command</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="iperf"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>iperf</h1>
+<p>网络性能测试工具</p>
+<h2 id="补充说明-193">补充说明</h2>
+<p><strong>iperf命令</strong> 是一个网络性能测试工具。iperf可以测试TCP和UDP带宽质量。iperf可以测量最大TCP带宽，具有多种参数和UDP特性。iperf可以报告带宽，延迟抖动和数据包丢失。利用iperf这一特性，可以用来测试一些网络设备如路由器，防火墙，交换机等的性能。</p>
+<p>iperf分为两种版本，Unix/Linux版和Windows版，Unix/Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。</p>
+<p>Linux版本下载地址：<a target="_blank" rel="noopener" href="http://code.google.com/p/iperf/downloads/list">http://code.google.com/p/iperf/downloads/list</a></p>
+<h3 id="安装iperf">安装iperf</h3>
+<p>对于windows版的iperf，直接将解压出来的iperf.exe和cygwin1.dll复制到%systemroot%目录即可，对于linux版的iperf，请使用如下命令安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gunzip -c iperf-&lt;version&gt;.tar.gz | tar -xvf -</span><br><span class="line">cd iperf-&lt;version&gt;</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="选项-175">选项</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-f, --format \[bkmaBKMA]   <span class="comment"># 格式化带宽数输出。支持的格式有： </span></span><br><span class="line">                           <span class="comment"># &#x27;b&#x27; = bits/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;B&#x27; = Bytes/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;k&#x27; = Kbits/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;K&#x27; = KBytes/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;m&#x27; = Mbits/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;M&#x27; = MBytes/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;g&#x27; = Gbits/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;G&#x27; = GBytes/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;a&#x27; = adaptive bits/sec </span></span><br><span class="line">                           <span class="comment"># &#x27;A&#x27; = adaptive Bytes/sec 自适应格式是kilo-和mega-二者之一。</span></span><br><span class="line">                           <span class="comment"># 除了带宽之外的字段都输出为字节，除非指定输出的格式，默认的参数是a。 </span></span><br><span class="line">                           <span class="comment"># 注意：在计算字节byte时，Kilo = 1024， Mega = 1024^2，Giga = 1024^3。</span></span><br><span class="line">                           <span class="comment"># 通常，在网络中，Kilo = 1000， Mega = 1000^2， and Giga = 1000^3，所以，Iperf也按此来计算比特（位）。</span></span><br><span class="line">                           <span class="comment"># 如果这些困扰了你，那么请使用-f b参数，然后亲自计算一下。</span></span><br><span class="line">-i, --interval <span class="comment">#           # 设置每次报告之间的时间间隔，单位为秒。如果设置为非零值，就会按照此时间间隔输出测试报告。默认值为零。</span></span><br><span class="line">-l, --len <span class="comment">#\[KM]           # 设置读写缓冲区的长度。TCP方式默认为8KB，UDP方式默认为1470字节。</span></span><br><span class="line">-m, --<span class="built_in">print</span>\_mss           <span class="comment"># 输出TCP MSS值（通过TCP\_MAXSEG支持）。MSS值一般比MTU值小40字节。通常情况</span></span><br><span class="line">-p, --port <span class="comment">#               # 设置端口，与服务器端的监听端口一致。默认是5001端口，与ttcp的一样。</span></span><br><span class="line">-u, --udp                  <span class="comment"># 使用UDP方式而不是TCP方式。参看-b选项。</span></span><br><span class="line">-w, --window <span class="comment">#\[KM]        # 设置套接字缓冲区为指定大小。对于TCP方式，此设置为TCP窗口大小。</span></span><br><span class="line">                           <span class="comment"># 对于UDP方式，此设置为接受UDP数据包的缓冲区大小，限制可以接受数据包的最大值。</span></span><br><span class="line">-B, --<span class="built_in">bind</span> host            <span class="comment"># 绑定到主机的多个地址中的一个。对于客户端来说，这个参数设置了出栈接口。对于服务器端来说，</span></span><br><span class="line">                           <span class="comment"># 这个参数设置入栈接口。这个参数只用于具有多网络接口的主机。在Iperf的UDP模式下，此参数用于绑定和加入一个多播组。</span></span><br><span class="line">                           <span class="comment"># 使用范围在224.0.0.0至239.255.255.255的多播地址。参考-T参数。</span></span><br><span class="line">-C, --compatibility        <span class="comment"># 与低版本的Iperf使用时，可以使用兼容模式。不需要两端同时使用兼容模式，但是强烈推荐两端同时使用兼容模式。</span></span><br><span class="line">                           <span class="comment"># 某些情况下，使用某些数据流可以引起1.7版本的服务器端崩溃或引起非预期的连接尝试。</span></span><br><span class="line">-M, --mss                  <span class="comment"># ip头减去40字节。在以太网中，MSS值 为1460字节（MTU1500字节）。许多操作系统不支持此选项。</span></span><br><span class="line">-N, --nodelay              <span class="comment"># 设置TCP无延迟选项，禁用Nagle&#x27;s运算法则。通常情况此选项对于交互程序，例如telnet，是禁用的。</span></span><br><span class="line">-V (from v1.6 or higher)   <span class="comment"># 绑定一个IPv6地址。 服务端：$ iperf -s –V 客户端：$ iperf -c -V 注意：在1.6.3或更高版本中，指定IPv6地址不需要使用-B参数绑定，在1.6之前的版本则需要。在大多数操作系统中，将响应IPv4客户端映射的IPv4地址。</span></span><br></pre></td></tr></table></figure>
+<p>服务器端专用选项</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-s, --server                    <span class="comment"># Iperf服务器模式</span></span><br><span class="line">-D (v1.2或更高版本)               <span class="comment"># Unix平台下Iperf作为后台守护进程运行。在Win32平台下，Iperf将作为服务运行。</span></span><br><span class="line">-R(v1.2或更高版本，仅用于Windows)  <span class="comment"># 卸载Iperf服务（如果它在运行）。</span></span><br><span class="line">-o(v1.2或更高版本，仅用于Windows)  <span class="comment"># 重定向输出到指定文件</span></span><br><span class="line">-c, --client host               <span class="comment"># 如果Iperf运行在服务器模式，并且用-c参数指定一个主机，那么Iperf将只接受指定主机的连接。此参数不能工作于UDP模式。</span></span><br><span class="line">-P, --parallel <span class="comment">#                # 服务器关闭之前保持的连接数。默认是0，这意味着永远接受连接。</span></span><br></pre></td></tr></table></figure>
+<p>客户端专用选项</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-b, --bandwidth <span class="comment">#\[KM]       # UDP模式使用的带宽，单位bits/sec。此选项与-u选项相关。默认值是1 Mbit/sec。 </span></span><br><span class="line">-c, --client host            <span class="comment"># 运行Iperf的客户端模式，连接到指定的Iperf服务器端。 </span></span><br><span class="line">-d, --dualtest               <span class="comment"># 运行双测试模式。这将使服务器端反向连接到客户端，</span></span><br><span class="line">                             <span class="comment"># 使用-L 参数中指定的端口（或默认使用客户端连接到服务器端的端口）。</span></span><br><span class="line">                             <span class="comment"># 这些在操作的同时就立即完成了。如果你想要一个交互的测试，请尝试-r参数。 </span></span><br><span class="line">-n, --num <span class="comment">#\[KM]             # 传送的缓冲器数量。通常情况，Iperf按照10秒钟发送数据。</span></span><br><span class="line">                             <span class="comment"># -n参数跨越此限制，按照指定次数发送指定长度的数据，而不论该操作耗费多少时间。参考-l与-t选项。 </span></span><br><span class="line">-r, --tradeoff               <span class="comment"># 往复测试模式。当客户端到服务器端的测试结束时，服务器端通过-l选项指定的端口（或默认为客户端连接到服务器端的端口），</span></span><br><span class="line">                             <span class="comment"># 反向连接至客户端。当客户端连接终止时，反向连接随即开始。如果需要同时进行双向测试，请尝试-d参数。 </span></span><br><span class="line">-t, --time <span class="comment">#                 # 设置传输的总时间。Iperf在指定的时间内，重复的发送指定长度的数据包。默认是10秒钟。参考-l与-n选项。 </span></span><br><span class="line">-L, --listenport <span class="comment">#           # 指定服务端反向连接到客户端时使用的端口。默认使用客户端连接至服务端的端口。 </span></span><br><span class="line">-P, --parallel <span class="comment">#             # 线程数。指定客户端与服务端之间使用的线程数。默认是1线程。需要客户端与服务器端同时使用此参数。 </span></span><br><span class="line">-S, --tos <span class="comment">#                  # 出栈数据包的服务类型。许多路由器忽略TOS字段。你可以指定这个值，使用以&quot;0x&quot;开始的16进制数，</span></span><br><span class="line">                             <span class="comment"># 或以&quot;0&quot;开始的8进制数或10进制数。 例如，16进制&#x27;0x10&#x27; = 8进制&#x27;020&#x27; = 十进制&#x27;16&#x27;。</span></span><br><span class="line">                             <span class="comment"># TOS值1349就是： IPTOS\_LOWDELAY minimize delay 0x10 IPTOS\_THROUGHPUT maximize </span></span><br><span class="line">                             <span class="comment"># throughput 0x08 IPTOS\_RELIABILITY maximize reliability 0x04 IPTOS\_LOWCOST minimize cost 0x02 </span></span><br><span class="line">-T, --ttl <span class="comment">#                  # 出栈多播数据包的TTL值。这本质上就是数据通过路由器的跳数。默认是1，链接本地。 </span></span><br><span class="line">-F (from v1.2 or higher)     <span class="comment"># 使用特定的数据流测量带宽，例如指定的文件。 $ iperf -c -F </span></span><br><span class="line">-I (from v1.2 or higher)     <span class="comment"># 与-F一样，由标准输入输出文件输入数据。 </span></span><br></pre></td></tr></table></figure>
+<p>杂项</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-h, --<span class="built_in">help</span>          <span class="comment"># 显示命令行参考并退出 。</span></span><br><span class="line">-v, --version       <span class="comment"># 显示版本信息和编译信息并退出。</span></span><br></pre></td></tr></table></figure>
+<h3 id="实例-140">实例</h3>
+<p>带宽测试通常采用UDP模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为100Mbps，先用<code>-b 100M</code>进行测试，然后根据测试结果（包括实际带宽，时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。</p>
+<p><strong>UDP模式</strong></p>
+<p>服务器端：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -u -s</span><br></pre></td></tr></table></figure>
+<p>客户端：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -u -c 192.168.1.1 -b 100M -t 60</span><br></pre></td></tr></table></figure>
+<p>在udp模式下，以100Mbps为数据发送速率，客户端到服务器192.168.1.1上传带宽测试，测试时间为60秒。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -u -c 192.168.1.1 -b 5M -P 30 -t 60</span><br></pre></td></tr></table></figure>
+<p>客户端同时向服务器端发起30个连接线程，以5Mbps为数据发送速率。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -u -c 192.168.1.1 -b 100M -d -t 60</span><br></pre></td></tr></table></figure>
+<p>以100M为数据发送速率，进行上下行带宽测试。</p>
+<p><strong>TCP模式</strong></p>
+<p>服务器端：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -s</span><br></pre></td></tr></table></figure>
+<p>客户端：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -c 192.168.1.1 -t 60</span><br></pre></td></tr></table></figure>
+<p>在tcp模式下，客户端到服务器192.168.1.1上传带宽测试，测试时间为60秒。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -c 192.168.1.1  -P 30 -t 60</span><br></pre></td></tr></table></figure>
+<p>客户端同时向服务器端发起30个连接线程。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iperf -c 192.168.1.1  -d -t 60</span><br></pre></td></tr></table></figure>
+<p>进行上下行带宽测试。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">GreenSeaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2022/08/14/Linux-command/iperf/">https://yuanweize.github.io/2022/08/14/Linux-command/iperf/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuanweize.github.io" target="_blank">HExLL-数字迷雾</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Linux-command/">Linux-command</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/14/Linux-command/ipcs/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ipcs</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/14/Linux-command/iptables-restore/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">iptables-restore</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/14/Linux-command/accept/" title="accept"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">accept</div></div></a></div><div><a href="/2022/08/14/Linux-command/ab/" title="ab"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">ab</div></div></a></div><div><a href="/2022/08/14/Linux-command/ack/" title="ack"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">ack</div></div></a></div><div><a href="/2022/08/14/Linux-command/alias/" title="alias"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">alias</div></div></a></div><div><a href="/2022/08/14/Linux-command/apk/" title="apk"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">apk</div></div></a></div><div><a href="/2022/08/14/Linux-command/apachectl/" title="apachectl"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 14-08-2022</div><div class="title">apachectl</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s.gravatar.com/avatar/50de7ee8a1fc96ada7495a641400642d?s=512" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenSeaa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">803</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">72</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuanweize"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuanweize" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:info@eurun.eu.org" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">iperf</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E-193"><span class="toc-number">1.1.</span> <span class="toc-text">补充说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85iperf"><span class="toc-number">1.1.1.</span> <span class="toc-text">安装iperf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E9%A1%B9-175"><span class="toc-number">1.1.2.</span> <span class="toc-text">选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B-140"><span class="toc-number">1.1.3.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/31/6-%E7%94%A8%20Vue3%20%E5%92%8C%20Django%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE/" title="6-用 Vue3 和 Django 快速搭建前后端分离项目">6-用 Vue3 和 Django 快速搭建前后端分离项目</a><time datetime="2022-10-31T00:59:54.000Z" title="发表于 31-10-2022 01:59:54">31-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/30/3-%E6%94%BE%E5%BC%83%E7%BA%A0%E7%BB%93%E3%80%81%E6%8B%A5%E6%8A%B1%E5%A6%A5%E5%8D%8F%EF%BC%8C%E9%87%8D%E5%99%A8%E8%BD%BB%E7%94%A8%E5%B0%B1%E6%98%AF%E9%AB%98%E6%95%88@annote/" title="3-放弃纠结、拥抱妥协，重器轻用就是高效@annote">3-放弃纠结、拥抱妥协，重器轻用就是高效@annote</a><time datetime="2022-10-30T04:30:45.000Z" title="发表于 30-10-2022 05:30:45">30-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C%E8%AF%AD%E8%A8%80%E4%B8%8EC-%E5%AD%A6%E4%B9%A0/" title="C语言与C++学习">C语言与C++学习</a><time datetime="2022-08-14T22:39:16.000Z" title="发表于 15-08-2022 00:39:16">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/tty/" title="tty">tty</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/type/" title="type">type</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By GreenSeaa</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
