@@ -1,0 +1,965 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>中国程序员容易发音错误的单词 | HExLL-迷雾日志</title><meta name="author" content="HExLL"><meta name="copyright" content="HExLL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0f172a"><meta name="description" content="Words Commonly Mispronounced by Chinese Programmers 中国程序员容易发音错误的单词(点击🔊收听正确读音) 重要更新  chromium扩展：无页面跳转，实时检索英语发音  安装 chromium 扩展 或者 外部独立库   简洁的单词列表，正..."><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "中国程序员容易发音错误的单词",
+  "url": "https://yuanweize.github.io/2022/08/09/chinese-programmer-wrong-pronunciation/",
+  "image": "https://avatars.githubusercontent.com/u/30067203",
+  "datePublished": "2022-08-09T18:28:21.000Z",
+  "dateModified": "2022-08-09T19:03:18.493Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "HExLL",
+      "url": "https://yuanweize.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2022/08/09/chinese-programmer-wrong-pronunciation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fafc')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-WD3QXC5CQE"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-WD3QXC5CQE')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-WD3QXC5CQE', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '中国程序员容易发音错误的单词',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-color: #0f172a;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars.githubusercontent.com/u/30067203" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">804</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">79</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">74</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">HExLL-迷雾日志</span></a><a class="nav-page-title" href="/"><span class="site-name">中国程序员容易发音错误的单词</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">中国程序员容易发音错误的单词</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-09T18:28:21.000Z" title="发表于 09-08-2022 20:28:21">09-08-2022</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-09T19:03:18.493Z" title="更新于 09-08-2022 21:03:18">09-08-2022</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Words-Commonly-Mispronounced-by-Chinese-Programmers">Words Commonly Mispronounced by Chinese Programmers</h2>
+<h2 id="中国程序员容易发音错误的单词-点击🔊收听正确读音">中国程序员容易发音错误的单词(点击🔊收听正确读音)</h2>
+<h3 id="重要更新">重要更新</h3>
+<ul>
+<li>chromium扩展：无页面跳转，实时检索英语发音
+<ul>
+<li>安装 <a href="tools/chromium_extension/README.md">chromium 扩展</a> 或者</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jingjingxyk/chinese-programmer-wrong-pronunciation-chromium-extension.git">外部独立库</a></li>
+</ul>
+</li>
+<li>简洁的单词列表，正确读音不用再打开新网页：<a target="_blank" rel="noopener" href="https://cpwp.netlify.app/">https://cpwp.netlify.app/</a></li>
+<li><a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/%E7%8C%BF%E5%8D%95%E8%AF%8D-%E4%B8%AD%E5%9B%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E5%AE%B9%E6%98%93%E5%8F%91%E9%9F%B3%E9%94%99%E8%AF%AF%E7%9A%84%E5%8D%95%E8%AF%8D/id1626487291">iOS应用</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>单词</th>
+<th>正确发音（英音）</th>
+<th>正确发音（美音）</th>
+<th>错误发音</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=access&amp;type=1">🔊</a>  /'ækses/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=access&amp;type=2">🔊</a>  /ˈækses/</td>
+<td>❌ /ək’ses/</td>
+</tr>
+<tr>
+<td>Adobe</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Adobe&amp;type=1">🔊</a>  /ə’dəʊbi/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Adobe&amp;type=2">🔊</a>  /ə’dəʊbi/</td>
+<td>❌ /əˈdub/</td>
+</tr>
+<tr>
+<td>admin</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=admin&amp;type=1">🔊</a>  /'ædmɪn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=admin&amp;type=2">🔊</a>  /ˈædmɪn/</td>
+<td>❌ /ɜ:d’mɪn/</td>
+</tr>
+<tr>
+<td>adversarial</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=adversarial&amp;type=1">🔊</a>  /ˌædvəˈseəriəl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=adversarial&amp;type=2">🔊</a>   /ˌædvərˈseriəl/</td>
+<td>❌ /ədˈvɜːrsəriəl/</td>
+</tr>
+<tr>
+<td>agile</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=agile&amp;type=1">🔊</a>  /'ædʒaɪl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=agile&amp;type=2">🔊</a>  /ˈædʒl/</td>
+<td>❌ /ə’dʒaɪl/</td>
+</tr>
+<tr>
+<td>amazon</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=amazon&amp;type=1">🔊</a>  /'æməzən/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=amazon&amp;type=2">🔊</a>  /ˈæməzɑːn/</td>
+<td>❌ /'əmeizən/ /ə’meizən/</td>
+</tr>
+<tr>
+<td>analogy</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=analogy&amp;type=1">🔊</a>  /əˈnælədʒi/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=analogy&amp;type=2">🔊</a>  /əˈnælədʒi/</td>
+<td>❌ /ænə’lɒdʒi/</td>
+</tr>
+<tr>
+<td>Angular</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Angular&amp;type=1">🔊</a>  /'æŋgjʊlə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Angular&amp;type=2">🔊</a>  /ˈæŋɡjələr/</td>
+<td>❌ /'æŋɡələ/ /'æŋdʒʌlə/</td>
+</tr>
+<tr>
+<td>AJAX</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=AJAX&amp;type=1">🔊</a>  /'eidʒæks/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=AJAX&amp;type=2">🔊</a>  /'eidʒæks/</td>
+<td>❌ /ə’dʒʌks/</td>
+</tr>
+<tr>
+<td>alias</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=alias&amp;type=1">🔊</a>  /ˈeɪliəs/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=alias&amp;type=2">🔊</a>  /ˈeɪliəs/</td>
+<td>❌ /ə’lais/</td>
+</tr>
+<tr>
+<td>align</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=align&amp;type=1">🔊</a>  /əˈlaɪn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=align&amp;type=2">🔊</a>  /əˈlaɪn/</td>
+<td>❌ /ə’lidʒen/</td>
+</tr>
+<tr>
+<td>Apache</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Apache&amp;type=1">🔊</a>  /ə’pætʃɪ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Apache&amp;type=2">🔊</a>  /əˈpætʃi/</td>
+<td>❌ /ʌpʌtʃ/</td>
+</tr>
+<tr>
+<td>app</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=app&amp;type=1">🔊</a>  /æp/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=app&amp;type=2">🔊</a>  /æp/</td>
+<td>❌ /eipi’pi/</td>
+</tr>
+<tr>
+<td>archive</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=archive&amp;type=1">🔊</a>  /'ɑːkaɪv/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=archive&amp;type=2">🔊</a>  /'ɑːkaɪv/</td>
+<td>❌ /'ətʃɪv/</td>
+</tr>
+<tr>
+<td>array</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=array&amp;type=1">🔊</a>  /ə’rei/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=array&amp;type=2">🔊</a>  /əˈreɪ/</td>
+<td>❌ /æ’rei/</td>
+</tr>
+<tr>
+<td>ASCII</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=ascii&amp;type=1">🔊</a>  /'æski/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=ascii&amp;type=2">🔊</a>  /ˈæski/</td>
+<td>❌ /ɑːsk/</td>
+</tr>
+<tr>
+<td>aspect</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=aspect&amp;type=1">🔊</a>  /'æspekt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=aspect&amp;type=2">🔊</a>  /ˈæspekt/</td>
+<td>❌ /ə’spekt/</td>
+</tr>
+<tr>
+<td>async</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=async&amp;type=1">🔊</a> /əˈsɪŋk/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=async&amp;type=2">🔊</a> /æˈsɪŋk/</td>
+<td>❌ /'æsɪŋk/</td>
+</tr>
+<tr>
+<td>avatar</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=avatar&amp;type=1">🔊</a>  /'ævətɑː/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=avatar&amp;type=2">🔊</a>  /ˈævətɑːr/</td>
+<td>❌ /ə’vʌtɑ/</td>
+</tr>
+<tr>
+<td>Azure</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=azure&amp;type=1">🔊</a>  /'æʒə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=azure&amp;type=2">🔊</a>  /ˈæʒər/</td>
+<td>❌ /ˈæzʊʒə/</td>
+</tr>
+<tr>
+<td>bind</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=bind&amp;type=1">🔊</a>  /baɪnd/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=bind&amp;type=2">🔊</a>  /baɪnd/</td>
+<td>❌ /bɪnd/</td>
+</tr>
+<tr>
+<td>BIOS</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=bios&amp;type=1">🔊</a>  /ˈbaɪɒs/</td>
+<td>/'baɪɑs/</td>
+<td>❌ /ˈbɪɒs/</td>
+</tr>
+<tr>
+<td>cache</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=cache&amp;type=1">🔊</a>  /kæʃ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=cache&amp;type=2">🔊</a>  /kæʃ/</td>
+<td>❌ /kætʃ/</td>
+</tr>
+<tr>
+<td>canal</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=canal&amp;type=1">🔊</a> /kəˈnæl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=canal&amp;type=2">🔊</a> /kəˈnæl/</td>
+<td>❌ /ˈkænl/</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=chrome&amp;type=1">🔊</a> /krəʊm/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=chrome&amp;type=2">🔊</a> /kroʊm/</td>
+<td>❌ /tʃɔːm/</td>
+</tr>
+<tr>
+<td>clang</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=clang&amp;type=1">🔊</a>  /klæŋ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=clang&amp;type=2">🔊</a>  /klæŋ/</td>
+<td>❌ /sɪlæŋ/</td>
+</tr>
+<tr>
+<td>Coq</td>
+<td><a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/4/47/Fr-coq.ogg">🔊</a> IPA French ['kɔkʲ] 读若拼音“goq”</td>
+<td></td>
+<td>❌ IPA English ['kʰɒk]</td>
+</tr>
+<tr>
+<td>daemon</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Daemon&amp;type=1">🔊</a>  /'diːmən/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Daemon&amp;type=2">🔊</a>  /ˈdiːmən/</td>
+<td>❌ /dæmən/</td>
+</tr>
+<tr>
+<td>debt</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=debt&amp;type=1">🔊</a>  /det/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=debt&amp;type=2">🔊</a>  /det/</td>
+<td>❌ /de’bit/</td>
+</tr>
+<tr>
+<td>deny</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=deny&amp;type=1">🔊</a>  /dɪ’naɪ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=deny&amp;type=2">🔊</a>  /dɪˈnaɪ/</td>
+<td>❌ /'dæni/</td>
+</tr>
+<tr>
+<td>deprecate</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=deprecate&amp;type=1">🔊</a> /ˈdeprəkeɪt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=deprecate&amp;type=2">🔊</a> /ˈdeprəkeɪt/</td>
+<td></td>
+</tr>
+<tr>
+<td>deque</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=deque&amp;type=1">🔊</a>  /'dek/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=deque&amp;type=2">🔊</a>  /dɛk/</td>
+<td>❌ /di’kju/</td>
+</tr>
+<tr>
+<td>digest</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=digest&amp;type=1">🔊</a>  n. /'dɑɪdʒɛst/ v. /dɑɪ’dʒɛst/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=digest&amp;type=2">🔊</a>  /daɪˈdʒest,dɪˈdʒest/</td>
+<td>❌ /'dɪgɛst/</td>
+</tr>
+<tr>
+<td>Dijkstra</td>
+<td><a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/8/85/Dijkstra.ogg">🔊</a>  Dutch:/ˈdɛikstra/ English:/ˈdaɪkstrə/</td>
+<td><a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/8/85/Dijkstra.ogg">🔊</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Django</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Django&amp;type=1">🔊</a>  /ˈdʒæŋɡoʊ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Django&amp;type=2">🔊</a>  /ˈdʒæŋɡoʊ/</td>
+<td>❌ /diˈdʒæŋɡoʊ/</td>
+</tr>
+<tr>
+<td>doc</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=doc&amp;type=1">🔊</a>  /dɒk/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=doc&amp;type=2">🔊</a>  /dɒk/</td>
+<td>❌ /daʊk/</td>
+</tr>
+<tr>
+<td>dotnet</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=dotnet&amp;type=1">🔊</a>  /dɒtnet/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=dotnet&amp;type=2">🔊</a>  /dɑːtnet/</td>
+<td>❌ /daʊtnet/</td>
+</tr>
+<tr>
+<td>edition</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=edition&amp;type=1">🔊</a>  /ɪˈdɪʃ(ə)n/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=edition&amp;type=2">🔊</a>  /ɪˈdɪʃn/</td>
+<td>❌ /eˈdɪʃn/</td>
+</tr>
+<tr>
+<td>ephemeral</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=ephemeral&amp;type=1">🔊</a>  /ɪˈfemərəl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=ephemeral&amp;type=2">🔊</a>  /ɪˈfemərəl/</td>
+<td>❌ /daʊtnet/</td>
+</tr>
+<tr>
+<td>epoch</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=epoch&amp;type=1">🔊</a>  /ˈiːpɒk/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=epoch&amp;type=2">🔊</a>  /ˈepək/</td>
+<td>❌ /'ɛpətʃ/</td>
+</tr>
+<tr>
+<td>execute</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=execute&amp;type=1">🔊</a> /ˈeksɪkjuːt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=execute&amp;type=2">🔊</a> /ˈeksɪkjuːt/</td>
+<td></td>
+</tr>
+<tr>
+<td>executor</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=executor&amp;type=1">🔊</a> /ɪɡˈzekjətə®/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=executor&amp;type=2">🔊</a> /ɪɡˈzekjətər/</td>
+<td></td>
+</tr>
+<tr>
+<td>event</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=event&amp;type=1">🔊</a>  /ɪ’vent/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=event&amp;type=2">🔊</a>  /ɪˈvent/</td>
+<td>❌ /'ɪvənt/</td>
+</tr>
+<tr>
+<td>exit</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=exit&amp;type=1">🔊</a> /ˈeksɪt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=exit&amp;type=2">🔊</a> /ˈeksɪt; ˈeɡzɪt/</td>
+<td>❌ /ig’zit/</td>
+</tr>
+<tr>
+<td>facade</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=facade&amp;type=1">🔊</a>  /fə’sɑːd/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=facade&amp;type=2">🔊</a>  /fəˈsɑːd/</td>
+<td>❌ /'feikeid/</td>
+</tr>
+<tr>
+<td>fedora</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=fedora&amp;type=1">🔊</a>  /fɪ’dɔːrə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=fedora&amp;type=2">🔊</a>  /fɪˈdɔːrə/</td>
+<td>❌ /'fedərə/</td>
+</tr>
+<tr>
+<td>format</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=format&amp;type=1">🔊</a>  /'fɔːmæt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=format&amp;type=2">🔊</a>  /ˈfɔːrmæt/</td>
+<td>❌ /fɔ’mæt/</td>
+</tr>
+<tr>
+<td>gauge</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=gauge&amp;type=1">🔊</a> /ɡeɪdʒ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=gauge&amp;type=2">🔊</a> /ɡeɪdʒ/</td>
+<td>❌ /ɡɑudʒ/</td>
+</tr>
+<tr>
+<td>Git</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=git&amp;type=1">🔊</a>  /ɡɪt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=git&amp;type=2">🔊</a>  /ɡɪt/</td>
+<td>❌ /dʒɪt/</td>
+</tr>
+<tr>
+<td>GNU</td>
+<td><a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/2/24/En-gnu.ogg">🔊</a>  /gnu:/</td>
+<td><a target="_blank" rel="noopener" href="https://upload.wikimedia.org/wikipedia/commons/2/24/En-gnu.ogg">🔊</a>  /gnuː,gnjuː/</td>
+<td></td>
+</tr>
+<tr>
+<td>Grafana</td>
+<td><a target="_blank" rel="noopener" href="http://www.howtopronounce.cc/file/e204a97ed1e440c5ab15ea0117beb955.mp3">🔊</a>   /grəˈfɑːnˌɑː/</td>
+<td><a target="_blank" rel="noopener" href="http://www.howtopronounce.cc/file/e204a97ed1e440c5ab15ea0117beb955.mp3">🔊</a>   /grəˈfɑːnˌɑː/</td>
+<td></td>
+</tr>
+<tr>
+<td>GraphQL</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=GraphQL&amp;type=1">🔊</a>  /græf kju ɛl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=GraphQL&amp;type=2">🔊</a>  /græf kju ɛl/</td>
+<td>❌ /dʒɪgræf kju ɛl/</td>
+</tr>
+<tr>
+<td>GUI</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=%7BGUI%7D&amp;type=1">🔊</a>  /ˈɡu:i/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=%7BGUI%7D&amp;type=2">🔊</a>  /ˈɡu:i/</td>
+<td></td>
+</tr>
+<tr>
+<td>Haskell</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=haskell&amp;type=1">🔊</a>  /ˈhæskəl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=haskell&amp;type=2">🔊</a>  /ˈhæskəl/</td>
+<td>❌ /hæˈskəl/</td>
+</tr>
+<tr>
+<td>height</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=height&amp;type=1">🔊</a>  /haɪt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=height&amp;type=2">🔊</a>  /haɪt/</td>
+<td>❌ /heɪt/</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=hidden&amp;type=1">🔊</a>  /'hɪdn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=hidden&amp;type=2">🔊</a>  /ˈhɪdn/</td>
+<td>❌ /'haɪdn/</td>
+</tr>
+<tr>
+<td>image</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=image&amp;type=1">🔊</a>  /'ɪmɪdʒ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=image&amp;type=2">🔊</a>  /ˈɪmɪdʒ/</td>
+<td>❌ /ɪ’meɪdʒ/</td>
+</tr>
+<tr>
+<td>implement</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=implement&amp;type=1">🔊</a>  /'ɪmplɪm(ə)nt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=implement&amp;type=2">🔊</a>  /ˈɪmplɪmənt/ /ˈɪmpləˌment/</td>
+<td>❌ /ɪm’plem(ə)nt/</td>
+</tr>
+<tr>
+<td>integer</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=integer&amp;type=1">🔊</a>  /'ɪntɪdʒə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=integer&amp;type=2">🔊</a>  /ˈɪntɪdʒər/</td>
+<td>❌ /ˈɪntaɪgə/</td>
+</tr>
+<tr>
+<td>issue</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=issue&amp;type=1">🔊</a>  /'ɪʃuː/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=issue&amp;type=2">🔊</a>  /ˈɪʃuː/</td>
+<td>❌ /ˈaɪʃuː/</td>
+</tr>
+<tr>
+<td>Java</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=java&amp;type=1">🔊</a>  /'dʒɑːvə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=java&amp;type=2">🔊</a>  /ˈdʒɑːvə/</td>
+<td></td>
+</tr>
+<tr>
+<td>jpg</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=JPEG&amp;type=1">🔊</a>  /'dʒeɪpeɡ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=JPEG&amp;type=2">🔊</a>  /'dʒeɪpeɡ/</td>
+<td>❌ /ˈdʒeɪˈpi:ˈdʒiː/</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=key&amp;type=1">🔊</a>  /kiː/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=key&amp;type=2">🔊</a>  /kiː/</td>
+<td>❌ /kei/</td>
+</tr>
+<tr>
+<td>Kubernetes*</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Kubernetes&amp;type=2">🔊</a>  /kubз’netɪs/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Kubernetes&amp;type=2">🔊</a>  /kuːbə˞’netiz/</td>
+<td></td>
+</tr>
+<tr>
+<td>lambda</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=lambda&amp;type=1">🔊</a>  /ˈlæmdə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=lambda&amp;type=2">🔊</a>  /ˈlæmdə/</td>
+<td>❌ /ˈlɒŋmdɑ/</td>
+</tr>
+<tr>
+<td>Ldap</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=ldap&amp;type=1">🔊</a>  /el’dæp/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=ldap&amp;type=2">🔊</a>  /el’dæp/</td>
+<td>❌ /el’daːp/</td>
+</tr>
+<tr>
+<td>linear</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=linear&amp;type=1">🔊</a>  /'lɪnɪə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=linear&amp;type=2">🔊</a>  /ˈlɪniər/</td>
+<td>❌ /'laɪə/</td>
+</tr>
+<tr>
+<td>LINQ</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=link&amp;type=1">🔊</a> /lɪŋk/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=link&amp;type=2">🔊</a> /lɪŋk/</td>
+<td>❌ /lɪŋkju:/</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=linux&amp;type=1">🔊</a>  /'lɪnəks/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=linux&amp;type=2">🔊</a>  /ˈlaɪnəks/ /ˈlɪnəks/</td>
+<td>❌ /ˈlɪnʌks/ /ˈlɪnjuːks/</td>
+</tr>
+<tr>
+<td>locale</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=locale&amp;type=1">🔊</a>  /ləʊ’kɑːl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=locale&amp;type=2">🔊</a>  /loʊˈkæl/</td>
+<td>❌ /ˈloʊk(ə)l/</td>
+</tr>
+<tr>
+<td>Lucene</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=lucene&amp;type=1">🔊</a>  /lu’siːn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=lucene&amp;type=2">🔊</a>  /lu’siːn/</td>
+<td>❌ /'lu:sən/</td>
+</tr>
+<tr>
+<td>macro</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=macro&amp;type=1">🔊</a>  /ˈmækrəʊ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=macro&amp;type=2">🔊</a>  /ˈmækroʊ/</td>
+<td>❌ /ˈmakroʊ/</td>
+</tr>
+<tr>
+<td>main</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=main&amp;type=1">🔊</a>  /meɪn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=main&amp;type=2">🔊</a>  /meɪn/</td>
+<td>❌ /mɪn/</td>
+</tr>
+<tr>
+<td>margin</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=margin&amp;type=1">🔊</a>  /'mɑːdʒɪn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=margin&amp;type=2">🔊</a>  /ˈmɑːrdʒɪn/</td>
+<td>❌ /'mʌgɪn/</td>
+</tr>
+<tr>
+<td>matrix</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=matrix&amp;type=1">🔊</a>  /ˈmeɪtrɪks/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=matrix&amp;type=2">🔊</a>  /ˈmeɪtrɪks/</td>
+<td>❌ /ˈmɑ:trɪks/</td>
+</tr>
+<tr>
+<td>maven</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=maven&amp;type=1">🔊</a>  /'meɪvn/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=maven&amp;type=2">🔊</a>  /ˈmeɪvn/</td>
+<td>❌ /'maːvn/</td>
+</tr>
+<tr>
+<td>max</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=max&amp;type=1">🔊</a> /mæks/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=max&amp;type=2">🔊</a> /mæks/</td>
+<td>❌ /mɑ:ks/</td>
+</tr>
+<tr>
+<td>Microsoft</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Microsoft&amp;type=1">🔊</a>  /'maikrəusɔft/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Microsoft&amp;type=2">🔊</a>  /ˈmaɪkrəsɔːft/</td>
+<td>❌ /'mikrəusɔft/</td>
+</tr>
+<tr>
+<td>miscellaneous</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=miscellaneous&amp;type=1">🔊</a> /ˌmɪsəˈleɪniəs/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=miscellaneous&amp;type=2">🔊</a> /ˌmɪsəˈleɪniəs/</td>
+<td></td>
+</tr>
+<tr>
+<td>module</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=module&amp;type=1">🔊</a>  /'mɒdjuːl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=module&amp;type=2">🔊</a>  /ˈmɑːdʒuːl/</td>
+<td>❌ /'məʊdl/</td>
+</tr>
+<tr>
+<td>native</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=native&amp;type=1">🔊</a> /ˈneɪtɪv/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=native&amp;type=2">🔊</a> /ˈneɪtɪv/</td>
+<td>❌ /ˈnætɪv/</td>
+</tr>
+<tr>
+<td>nginx</td>
+<td>Engine X</td>
+<td>Engine X</td>
+<td></td>
+</tr>
+<tr>
+<td>null</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=null&amp;type=1">🔊</a>  /nʌl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=null&amp;type=2">🔊</a>  /nʌl/</td>
+<td>❌ /naʊ/</td>
+</tr>
+<tr>
+<td>obsolete</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=obsolete&amp;type=1">🔊</a> /ˈɒbsəliːt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=obsolete&amp;type=2">🔊</a> /ˌɑːbsəˈliːt/</td>
+<td></td>
+</tr>
+<tr>
+<td>OS X</td>
+<td>OS ten</td>
+<td>OS ten</td>
+<td>❌ /ɔs eks/</td>
+</tr>
+<tr>
+<td>phantom</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=phantom&amp;type=1">🔊</a>  /'fæntəm/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=phantom&amp;type=2">🔊</a>  /ˈfæntəm/</td>
+<td>❌ /'pæntəm/</td>
+</tr>
+<tr>
+<td>parameter</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=parameter&amp;type=1">🔊</a>  /pə’ræmɪtə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=parameter&amp;type=2">🔊</a>  /pəˈræmɪtər/</td>
+<td>❌ /'pærəmɪtə/</td>
+</tr>
+<tr>
+<td>privilege</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=privilege&amp;type=1">🔊</a>  /'prɪvəlɪdʒ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=privilege&amp;type=2">🔊</a>  /ˈprɪvəlɪdʒ/</td>
+<td>❌ /'prɪvɪlɪdʒ/</td>
+</tr>
+<tr>
+<td>probe</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=probe&amp;type=1">🔊</a> /prəʊb/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=probe&amp;type=2">🔊</a> /proʊb/</td>
+<td>❌ /proʊbi/</td>
+</tr>
+<tr>
+<td>Prometheus</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=prometheus&amp;type=1">🔊</a>  /prə-ˈmē-thē-əs/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=prometheus&amp;type=2">🔊</a>  /pro’miθɪəs/</td>
+<td></td>
+</tr>
+<tr>
+<td>putty</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=putty&amp;type=1">🔊</a>  /ˈpʌti/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=putty&amp;type=2">🔊</a>  /ˈpʌti/</td>
+<td>❌ /ˈpuːti/</td>
+</tr>
+<tr>
+<td>Qt</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=cute&amp;type=1">🔊</a>  /kjuːt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=cute&amp;type=2">🔊</a>  /kjuːt/</td>
+<td></td>
+</tr>
+<tr>
+<td>query</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=query&amp;type=1">🔊</a>  /'kwɪəri/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=query&amp;type=2">🔊</a>  /ˈkwɪri/</td>
+<td>❌ /'kwaɪri/</td>
+</tr>
+<tr>
+<td>Realm</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=realm&amp;type=1">🔊</a>  /relm/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=realm&amp;type=2">🔊</a>  /relm/</td>
+<td>❌ /riəlm/</td>
+</tr>
+<tr>
+<td>reconcile</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=reconcile&amp;type=1">🔊</a> /ˈrekənsaɪl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=reconcile&amp;type=2">🔊</a> /ˈrekənsaɪl/</td>
+<td></td>
+</tr>
+<tr>
+<td>Redux</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=redux&amp;type=1">🔊</a>  /ri’dʌks/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=redux&amp;type=2">🔊</a>  /ri’dʌks/</td>
+<td>❌ /'ridju:ks/</td>
+</tr>
+<tr>
+<td>resume</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=resume&amp;type=1">🔊</a>   /rɪ’zju:m/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=resume&amp;type=2">🔊</a>  /rɪˈzuːm/</td>
+<td>❌  /rɪ’sju:m/</td>
+</tr>
+<tr>
+<td>resolved</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=resolved&amp;type=1">🔊</a>  /rɪ’zɒlvd/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=resolved&amp;type=2">🔊</a>  /rɪˈzɑːlvd/</td>
+<td>❌ /rɪ’səʊvd/</td>
+</tr>
+<tr>
+<td>resort</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=resort&amp;type=1">🔊</a>  /rɪˈzɔ:t/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=resort&amp;type=2">🔊</a>  /rɪˈzɔːrt/</td>
+<td>❌ /rɪˈsɔ:t/</td>
+</tr>
+<tr>
+<td>retina</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=retina&amp;type=1">🔊</a>  /'retɪnə/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=retina&amp;type=2">🔊</a>  /ˈretɪnə/</td>
+<td>❌ /ri’tina/</td>
+</tr>
+<tr>
+<td>route</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=route&amp;type=1">🔊</a>  /ruːt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=route&amp;type=2">🔊</a>  /ruːt,raʊt/</td>
+<td>❌ /rəʊt/</td>
+</tr>
+<tr>
+<td>San Jose</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=san%20jose&amp;type=1">🔊</a>  /sænhəu’zei/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=san%20jose&amp;type=2">🔊</a>  /sænhəu’zei/</td>
+<td>❌ /sæn’ju:s/</td>
+</tr>
+<tr>
+<td>safari</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=safari&amp;type=1">🔊</a>  /sə’fɑːrɪ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=safari&amp;type=2">🔊</a>  /səˈfɑːri/</td>
+<td>❌ /sæfərɪ/</td>
+</tr>
+<tr>
+<td>scheme</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=scheme&amp;type=1">🔊</a>  /skiːm/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=scheme&amp;type=2">🔊</a>  /skiːm/</td>
+<td>❌ /s’kæmə/</td>
+</tr>
+<tr>
+<td>scala</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=scala&amp;type=1">🔊</a>  /ˈskɑːlɑ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=scala&amp;type=2">🔊</a>  /ˈskɑːlɑ/</td>
+<td>❌ /ˈskæːlɑ/</td>
+</tr>
+<tr>
+<td>segue</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=segue&amp;type=1">🔊</a>  /'sɛɡwe/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=segue&amp;type=2">🔊</a>  /ˈseɡweɪ/</td>
+<td>❌ /se’dʒ/</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>/ˈsiːkwəl/ /ˈesˈkjuːˈel/</td>
+<td>/ˈsiːkwəl/ /ˈesˈkjuːˈel/</td>
+<td></td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>/'suːduː/</td>
+<td>/'suːduː/</td>
+<td></td>
+</tr>
+<tr>
+<td>suite</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=suite&amp;type=1">🔊</a>  /swiːt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=suite&amp;type=2">🔊</a>  /swiːt/</td>
+<td>❌ /sjuːt/</td>
+</tr>
+<tr>
+<td>telemetry</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=telemetry&amp;type=1">🔊</a> /təˈlemətri/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=telemetry&amp;type=2">🔊</a> /təˈlemətri/</td>
+<td>❌ /ˈtelɪmətri/</td>
+</tr>
+<tr>
+<td>thymeleaf</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=thymeleaf&amp;type=1">🔊</a>  /ˈtaɪmˌlɪːf/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=thymeleaf&amp;type=2">🔊</a>  /ˈtaɪmˌlɪːf/</td>
+<td>❌ /θiːmɪlɪːf/</td>
+</tr>
+<tr>
+<td>tuple</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=tuple&amp;type=1">🔊</a> /tjʊpəl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=tuple&amp;type=2">🔊</a> /tuːpəl/</td>
+<td></td>
+</tr>
+<tr>
+<td>typical</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=typical&amp;type=1">🔊</a>  /'tɪpɪkl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=typical&amp;type=2">🔊</a>  /ˈtɪpɪkl/</td>
+<td>❌ /'taɪpɪkəl/</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td><a target="_blank" rel="noopener" href="http://upload.wikimedia.org/wikipedia/commons/b/b5/En-Ubuntu_pronunciation.oga">🔊</a>  /ʊ’bʊntʊ/</td>
+<td><a target="_blank" rel="noopener" href="http://upload.wikimedia.org/wikipedia/commons/b/b5/En-Ubuntu_pronunciation.oga">🔊</a>  /ʊ’bʊntʊ/</td>
+<td>❌ /juː’bʊntʊ/</td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td>U-E-F-I</td>
+<td>U-E-F-I</td>
+<td>❌ /jufi/ /ɔːfi/</td>
+</tr>
+<tr>
+<td>Vagrant</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Vagrant&amp;type=1">🔊</a> /ˈveɪɡrənt/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=Vagrant&amp;type=2">🔊</a> /ˈveɪɡrənt/</td>
+<td>/ˈvagɹent/</td>
+</tr>
+<tr>
+<td>variable</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=variable&amp;type=1">🔊</a>  /'veəriəbl/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=variable&amp;type=2">🔊</a>  /ˈveriəbl,ˈværiəbl/</td>
+<td>❌ /və’raiəbl/</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=verbose&amp;type=1">🔊</a>  /vɜːˈbəʊs/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=verbose&amp;type=2">🔊</a>  /vɜːrˈboʊs/</td>
+<td>❌ /'vɜːrboʊs/</td>
+</tr>
+<tr>
+<td>vue</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=vue&amp;type=1">🔊</a>  /v’ju:/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=vue&amp;type=2">🔊</a>  /v’ju:/</td>
+<td>❌ /v’ju:i/</td>
+</tr>
+<tr>
+<td>width</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=width&amp;type=1">🔊</a>  /wɪdθ/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=width&amp;type=2">🔊</a>  /wɪdθ,wɪtθ/</td>
+<td>❌ /waɪdθ/</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=youtube&amp;type=1">🔊</a>  /'juː’tjuːb/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=youtube&amp;type=2">🔊</a>  /'juː’tjuːb/</td>
+<td>❌ /'juː’tʊbɪ/</td>
+</tr>
+<tr>
+<td>Vite</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=vite&amp;type=1">🔊</a>  /vit/</td>
+<td><a target="_blank" rel="noopener" href="https://dict.youdao.com/dictvoice?audio=vite&amp;type=2">🔊</a>  /vit/</td>
+<td>❌ /vaɪt/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="附注">附注</h3>
+<ul>
+<li>无页面跳转，页面嵌入搜索引擎和实时检索英语发音，请安装<a href="tools/chromium_extension/README.md">chromium 扩展</a>
+<ul>
+<li><a href="tools/chromium_extension/images/README.md">chromium 扩展新增功能截图</a></li>
+</ul>
+</li>
+<li>当使用简名 ‘Kube’ 称呼 ‘Kubernetes’ 时, 发音则与 ‘cube’(/kjuːb/) 一致</li>
+</ul>
+<h3 id="相关链接">相关链接</h3>
+<ul>
+<li>真人发音：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/bv1nv411i7z3">https://www.bilibili.com/video/bv1nv411i7z3</a> (by @hailintao)</li>
+<li>简洁的单词列表，正确读音不用再打开新网页：<a target="_blank" rel="noopener" href="https://cpwp.netlify.app/">https://cpwp.netlify.app/</a> (by @antfu7)</li>
+<li>国际音标严式记音（纽约音）<a target="_blank" rel="noopener" href="https://github.com/b1f6c1c4/programming-pronunciations-en_US">https://github.com/b1f6c1c4/programming-pronunciations-en_US</a> (by @b1f6c1c4)</li>
+<li>单词连读：<a target="_blank" rel="noopener" href="https://corrector.justsong.cn/">https://corrector.justsong.cn/</a> (by <a target="_blank" rel="noopener" href="https://github.com/songquanpeng/pronunciation-corrector">@songquanpeng</a>)</li>
+<li><a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/%E7%8C%BF%E5%8D%95%E8%AF%8D-%E4%B8%AD%E5%9B%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E5%AE%B9%E6%98%93%E5%8F%91%E9%9F%B3%E9%94%99%E8%AF%AF%E7%9A%84%E5%8D%95%E8%AF%8D/id1626487291">iOS app</a> (by @Chang12)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jingjingxyk/chinese-programmer-wrong-pronunciation-chromium-extension.git">chromium系浏览器扩展，无页面跳转，实时检索英语发音</a> (by @jingjingxyk)</li>
+</ul>
+<h3 id="说明">说明</h3>
+<ol>
+<li>本着简单的原则, 又为了避免程序猿们出现选择困难症, '正确音标’采用了最接近有道词典音频的英式DJ音标，不代表其唯一性</li>
+<li>专业在线英语词典请参考: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/19707759">在线英语词典哪个比较好?</a></li>
+</ol>
+<h3 id="参考资料">参考资料</h3>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/19739907">https://www.zhihu.com/question/19739907</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/131094">https://www.v2ex.com/t/131094</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/309350">https://www.v2ex.com/t/309350</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/63781">https://www.v2ex.com/t/63781</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/246033">https://www.v2ex.com/t/246033</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/342087">https://www.v2ex.com/t/342087</a></li>
+</ol>
+<h3 id="Star-History">Star History</h3>
+<p><a target="_blank" rel="noopener" href="https://star-history.com/#shimohq/chinese-programmer-wrong-pronunciation&amp;Date"><img src="https://api.star-history.com/svg?repos=shimohq/chinese-programmer-wrong-pronunciation&amp;type=Date" alt="Star History Chart"></a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">HExLL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2022/08/09/chinese-programmer-wrong-pronunciation/">https://yuanweize.github.io/2022/08/09/chinese-programmer-wrong-pronunciation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yuanweize.github.io" target="_blank">HExLL-迷雾日志</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/coding/">coding</a></div><div class="post-share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/30067203" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2022/08/09/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BA%94%E8%AF%A5%E9%98%85%E8%AF%BB%E7%9A%84%E9%9D%9E%E7%BC%96%E7%A8%8B%E7%B1%BB%E4%B9%A6%E7%B1%8D%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" title="程序员应该阅读的非编程类书籍有哪些？"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">程序员应该阅读的非编程类书籍有哪些？</div></div><div class="info-2"><div class="info-item-1">在 stackoverflow 上有人提问 程序员应该阅读的非编程类书籍有哪些？ 本来只想整理编程类书籍， 不过突然眼前一亮，发现了《The Art of War - Sun Tzu》回答者的推荐说明引用 Wikipedia 上的： 亚马逊提供免费的　Kindle　版读本：孙子兵法  Much...</div></div></div></a><a class="pagination-related" href="/2022/08/09/English-level-up-tips/word-list/Python/" title="Python"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Python</div></div><div class="info-2"><div class="info-item-1">Python pragmatic immediate approximate backport circumstance coercion compound contiguous decoupling deliberately dispatch encapsulation generic fu...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/08/09/%E5%85%8D%E8%B4%B9%E7%9A%84%E7%BC%96%E7%A8%8B%E4%B8%AD%E6%96%87%E4%B9%A6%E7%B1%8D%E7%B4%A2%E5%BC%95/" title="免费的编程中文书籍索引"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">免费的编程中文书籍索引</div></div><div class="info-2"><div class="info-item-1">免费的编程中文书籍索引       免费的编程中文书籍索引，欢迎投稿。  国外程序员在 stackoverflow 推荐的程序员必读书籍，中文版。 stackoverflow 上的程序员应该阅读的非编程类书籍有哪些？ 中文版 github 上的一个流行的编程书籍索引  中文版  如果这个仓库对...</div></div></div></a><a class="pagination-related" href="/2022/08/09/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BA%94%E8%AF%A5%E9%98%85%E8%AF%BB%E7%9A%84%E9%9D%9E%E7%BC%96%E7%A8%8B%E7%B1%BB%E4%B9%A6%E7%B1%8D%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" title="程序员应该阅读的非编程类书籍有哪些？"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">程序员应该阅读的非编程类书籍有哪些？</div></div><div class="info-2"><div class="info-item-1">在 stackoverflow 上有人提问 程序员应该阅读的非编程类书籍有哪些？ 本来只想整理编程类书籍， 不过突然眼前一亮，发现了《The Art of War - Sun Tzu》回答者的推荐说明引用 Wikipedia 上的： 亚马逊提供免费的　Kindle　版读本：孙子兵法  Much...</div></div></div></a><a class="pagination-related" href="/2022/08/09/awesome-cheatsheets/coding_languages/python/" title="python"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">python</div></div><div class="info-2"><div class="info-item-1">Python 速查表中文版  本手册是 Python cheat sheet 的中文翻译版。原作者：Arianne Colton and Sean Chen(data.scientist.info@gmail.com) 编译：ucasFL  目录  常规 数值类类型 数据结构 函数 控制流 面...</div></div></div></a><a class="pagination-related" href="/2022/08/09/awesome-cheatsheets/coding_languages/javascript/" title="javascript"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">javascript</div></div><div class="info-2"><div class="info-item-1">JavaScript速查表   本手册绝大部分内容是从Airbnb JavaScript Style Guide精简整理，将开发者们都明确的操作去掉，目的为了就是更快的速查。 此处为源地址。   译制：HaleNing   目录  基础知识  类型 引用 对象 数组 解构 字符串 变量 属性 ...</div></div></div></a><a class="pagination-related" href="/2022/08/09/awesome-cheatsheets/coding_languages/vimscript/" title="vimscript"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">vimscript</div></div><div class="info-2"><div class="info-item-1">VimScript 速查表 译注：折腾 Vim 当然要能看懂和改写相关脚本，而中文资料匮乏，缺一个提纲挈领的教程。本文翻译自 Andrew Scala 的 《Five Minute Vimscript》，立足于让你用最短的时间掌握 VimScript 的基础和要点，你可以把它看成一份语言速查表...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/30067203" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HExLL</div><div class="author-info-description">个人技术博客，涵盖编程、深度学习、Linux等领域</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">804</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">79</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">74</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="mailto:info@eurun.eu.org" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Words-Commonly-Mispronounced-by-Chinese-Programmers"><span class="toc-number">1.</span> <span class="toc-text">Words Commonly Mispronounced by Chinese Programmers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E5%9B%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E5%AE%B9%E6%98%93%E5%8F%91%E9%9F%B3%E9%94%99%E8%AF%AF%E7%9A%84%E5%8D%95%E8%AF%8D-%E7%82%B9%E5%87%BB%F0%9F%94%8A%E6%94%B6%E5%90%AC%E6%AD%A3%E7%A1%AE%E8%AF%BB%E9%9F%B3"><span class="toc-number">2.</span> <span class="toc-text">中国程序员容易发音错误的单词(点击🔊收听正确读音)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%9B%B4%E6%96%B0"><span class="toc-number">2.1.</span> <span class="toc-text">重要更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E6%B3%A8"><span class="toc-number">2.2.</span> <span class="toc-text">附注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">2.3.</span> <span class="toc-text">相关链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">2.4.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">2.5.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Star-History"><span class="toc-number">2.6.</span> <span class="toc-text">Star History</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/31/%E5%8D%9A%E5%AE%A22025%E5%A4%A7%E6%9B%B4%E6%96%B0-Hexo%E5%8D%87%E7%BA%A7%E4%B8%8E%E5%85%A8%E9%9D%A2%E4%BC%98%E5%8C%96/" title="HExLL大更新：Hexo 8.x 升级与全面优化">HExLL大更新：Hexo 8.x 升级与全面优化</a><time datetime="2025-12-31T22:59:59.000Z" title="发表于 31-12-2025 23:59:59">31-12-2025</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/31/6-%E7%94%A8%20Vue3%20%E5%92%8C%20Django%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE/" title="6-用 Vue3 和 Django 快速搭建前后端分离项目">6-用 Vue3 和 Django 快速搭建前后端分离项目</a><time datetime="2022-10-31T00:59:54.000Z" title="发表于 31-10-2022 01:59:54">31-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/30/3-%E6%94%BE%E5%BC%83%E7%BA%A0%E7%BB%93%E3%80%81%E6%8B%A5%E6%8A%B1%E5%A6%A5%E5%8D%8F%EF%BC%8C%E9%87%8D%E5%99%A8%E8%BD%BB%E7%94%A8%E5%B0%B1%E6%98%AF%E9%AB%98%E6%95%88@annote/" title="3-放弃纠结、拥抱妥协，重器轻用就是高效@annote">3-放弃纠结、拥抱妥协，重器轻用就是高效@annote</a><time datetime="2022-10-30T04:30:45.000Z" title="发表于 30-10-2022 05:30:45">30-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C%E8%AF%AD%E8%A8%80%E4%B8%8EC-%E5%AD%A6%E4%B9%A0/" title="C语言与C++学习">C语言与C++学习</a><time datetime="2022-08-14T22:39:16.000Z" title="发表于 15-08-2022 00:39:16">15-08-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/14/Linux-command/tty/" title="tty">tty</a><time datetime="2022-08-14T20:29:33.000Z" title="发表于 14-08-2022 22:29:33">14-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2025 By HExLL</span></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">湘ICP备2023013146号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
