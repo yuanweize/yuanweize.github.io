@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo | HExLL-迷雾日志</title><meta name="author" content="HExLL"><meta name="copyright" content="HExLL"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0f172a"><meta name="description" content="背景：为什么需要 md2Hexo Hexo 的文章通常要求在文件头部包含 YAML front matter，例如： ---title: Post Titledate: 2024-01-01 12:00:00tags: [Tag1, Tag2]categories: [Category]---..."><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo",
+  "url": "https://yuanweize.github.io/2025/12/31/HExLL%E7%BB%B4%E6%8A%A4/md2Hexo-%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90%E4%B8%8E%E9%87%8D%E6%9E%84/",
+  "image": "https://avatars.githubusercontent.com/u/30067203",
+  "datePublished": "2025-12-31T11:00:00.000Z",
+  "dateModified": "2025-12-31T17:24:27.704Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "HExLL",
+      "url": "https://yuanweize.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuanweize.github.io/2025/12/31/HExLL%E7%BB%B4%E6%8A%A4/md2Hexo-%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90%E4%B8%8E%E9%87%8D%E6%9E%84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f8fafc')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-WD3QXC5CQE"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-WD3QXC5CQE')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-WD3QXC5CQE', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-color: #0f172a;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars.githubusercontent.com/u/30067203" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">805</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">74</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">HExLL-迷雾日志</span></a><a class="nav-page-title" href="/"><span class="site-name">md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://app.plex.tv/"><i class="fa-fw fas fa-video"></i><span> Movie[PLEX]</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://command.yuanweize.win/"><i class="fa-fw fab fa-linux"></i><span> Linux-command</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-31T11:00:00.000Z" title="发表于 31-12-2025 12:00:00">31-12-2025</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-31T17:24:27.704Z" title="更新于 31-12-2025 18:24:27">31-12-2025</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HExLL%E7%BB%B4%E6%8A%A4/">HExLL维护</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="背景：为什么需要-md2Hexo">背景：为什么需要 md2Hexo</h2>
+<p>Hexo 的文章通常要求在文件头部包含 YAML front matter，例如：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Post</span> <span class="string">Title</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2024-01-01 12:00:00</span></span><br><span class="line"><span class="attr">tags:</span> [<span class="string">Tag1</span>, <span class="string">Tag2</span>]</span><br><span class="line"><span class="attr">categories:</span> [<span class="string">Category</span>]</span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>当我们从外部仓库/笔记/电子书/速查表批量迁移 Markdown 到 <code>source/_posts/</code> 时，经常会遇到：</p>
+<ul>
+<li>没有 front matter（Hexo 无法识别为文章）</li>
+<li>文件数量巨大，需要批量处理</li>
+<li>希望 tags/categories 能根据目录名自动补全</li>
+<li>迁移过程中要尽量“安全”：已处理过的文件不要反复改写</li>
+</ul>
+<p>这就是 <code>tools/md2Hexo.py</code> 的定位：<strong>批量为 Markdown 文件补齐 Hexo front matter</strong>。</p>
+<p>本文基于仓库中的 <code>tools/md2Hexo.py</code>（当前版本 <code>2.1.0</code>）做一次“代码走读 + 质量测评 + 重构点说明”，让它看起来更像一个标准、可靠、可维护的 Python CLI 工具。</p>
+<hr>
+<h2 id="总体结构：从配置到批量转换">总体结构：从配置到批量转换</h2>
+<p>脚本主要由 4 个层次组成：</p>
+<ol>
+<li><strong>数据模型（dataclass）</strong>：<code>ConversionConfig</code>、<code>ConversionResult</code></li>
+<li><strong>Front Matter 相关能力</strong>：<code>HexoFrontMatter</code></li>
+<li><strong>转换核心</strong>：<code>Md2HexoConverter</code></li>
+<li><strong>CLI / 交互入口</strong>：<code>parse_args()</code>、<code>interactive_mode()</code>、<code>main()</code></li>
+</ol>
+<p>数据流大致如下：</p>
+<ol>
+<li><code>parse_args()</code> 解析命令行</li>
+<li>选择配置来源：配置文件 / CLI 参数 / 交互输入</li>
+<li>合并“覆盖项”（dry-run/force/exclude 等）</li>
+<li><code>Md2HexoConverter.convert_directory()</code> 遍历文件并调用 <code>convert_file()</code></li>
+<li>输出统计结果与错误摘要</li>
+</ol>
+<hr>
+<h2 id="模块-1：ConversionConfig（配置模型）">模块 1：ConversionConfig（配置模型）</h2>
+<p><code>ConversionConfig</code> 是工具的“行为说明书”，重要字段：</p>
+<ul>
+<li><code>tags: List[str]</code>：固定附加的标签</li>
+<li><code>categories: List[str]</code>：固定附加的分类</li>
+<li><code>include_folder_as_tag: bool</code>：是否把“最后一级目录名”加入 tags</li>
+<li><code>include_folder_as_category: bool</code>：是否把“最后一级目录名”加入 categories</li>
+<li><code>use_file_mtime: bool</code>：date 是否用文件修改时间（mtime）</li>
+<li><code>skip_existing_frontmatter: bool</code>：若文件已有 front matter 是否跳过（默认跳过，安全）</li>
+<li><code>exclude_patterns: List[str]</code>：排除列表（支持精确文件名与通配符）</li>
+<li><code>dry_run: bool</code>：预览模式（不写回文件）</li>
+</ul>
+<h3 id="兼容性">兼容性</h3>
+<p>仓库内已有 JSON 配置样例（例如 <code>tools/configs/awesome-cheatsheets.json</code>），字段与 dataclass 一一对应；这使得批量导入不同知识库时，只需切换配置文件即可。</p>
+<hr>
+<h2 id="模块-2：ConversionResult（结果统计）">模块 2：ConversionResult（结果统计）</h2>
+<p><code>ConversionResult</code> 负责统计与可观测性：</p>
+<ul>
+<li><code>total</code>：扫描到的 <code>.md</code> 文件数</li>
+<li><code>converted</code>：实际写入/转换数量</li>
+<li><code>skipped</code>：跳过数量（排除文件、已有 front matter 等）</li>
+<li><code>errors</code>：错误列表（路径 + 错误信息）</li>
+</ul>
+<p>工具最终会打印这些数字，便于判断一次批量导入是否“收敛”。</p>
+<hr>
+<h2 id="模块-3：HexoFrontMatter（Front-Matter-生成与检测）">模块 3：HexoFrontMatter（Front Matter 生成与检测）</h2>
+<p>这个模块做两件事：</p>
+<ol>
+<li><strong>检测文件开头是否已经存在 YAML front matter</strong></li>
+<li><strong>生成新的 YAML front matter 并插入到正文前面</strong></li>
+</ol>
+<h3 id="3-1-为什么要改进检测逻辑">3.1 为什么要改进检测逻辑</h3>
+<p>早期实现常见的写法是：</p>
+<ul>
+<li><code>content.strip().startswith('---')</code></li>
+</ul>
+<p>这会带来两个问题：</p>
+<ul>
+<li>容易误判：Markdown 里的水平分割线也可能是 <code>---</code></li>
+<li>性能不佳：为了判断“是否有 front matter”，不得不读取整个文件</li>
+</ul>
+<p>在当前版本中，检测改成了：</p>
+<ul>
+<li>使用正则 <code>\A--- ... ---</code> <strong>只在文件开头匹配</strong></li>
+<li>检测时只读取文件前 8KB（足够覆盖绝大多数 front matter）</li>
+</ul>
+<h3 id="3-2-YAML-输出（去依赖版）">3.2 YAML 输出（去依赖版）</h3>
+<p>为了让脚本在“纯 Python3 环境”里就能直接跑（避免额外安装 PyYAML），当前版本内置了一个<strong>极简 YAML 序列化器</strong>来输出 front matter：</p>
+<ul>
+<li>字符串统一用 JSON 风格双引号包裹（等价于 YAML 的双引号字符串），对中文/空格/冒号等特殊字符更安全</li>
+<li><code>tags</code> / <code>categories</code> 输出为 YAML 列表；为空时输出 <code>[]</code></li>
+<li><code>extra_fields</code> 仅支持“标量或字符串列表”，避免复杂类型带来的歧义</li>
+</ul>
+<hr>
+<h2 id="模块-4：Md2HexoConverter（核心转换引擎）">模块 4：Md2HexoConverter（核心转换引擎）</h2>
+<h3 id="4-1-目录遍历">4.1 目录遍历</h3>
+<p><code>convert_directory()</code> 使用 <code>Path.rglob('*.md')</code> 递归查找 Markdown 文件。</p>
+<ul>
+<li>若输入路径是“文件”，也会作为单文件处理（更灵活）</li>
+<li>若是目录，则递归遍历</li>
+</ul>
+<h3 id="4-2-排除规则-should-skip-file">4.2 排除规则 should_skip_file</h3>
+<p>排除规则做了两层兼容：</p>
+<ul>
+<li>精确匹配：<code>README.md</code>、<code>SUMMARY.md</code></li>
+<li>通配符匹配：<code>readme*</code>、<code>*.draft.md</code></li>
+</ul>
+<p>这能覆盖大部分“目录说明文件不该被当文章导入”的情况。</p>
+<h3 id="4-3-tags-categories-的构建策略">4.3 tags / categories 的构建策略</h3>
+<ul>
+<li>基础 tags/categories 来自配置文件或 CLI</li>
+<li>若开启 <code>include_folder_as_tag/category</code>：把“相对目录的最后一级目录名”附加进去</li>
+</ul>
+<p>这是一种折中：</p>
+<ul>
+<li>不会把整条路径拆成多级分类（过于复杂）</li>
+<li>但能在大多数情况下把内容按集合归类</li>
+</ul>
+<h3 id="4-4-I-O-与健壮性">4.4 I/O 与健壮性</h3>
+<p>当前版本做了几项“标准脚本该有的稳健处理”：</p>
+<ul>
+<li>编码读取：优先 <code>utf-8</code>，失败再尝试 <code>utf-8-sig</code></li>
+<li>跳过判断只读前缀：减少大文件的无谓读取</li>
+<li>写入采用“临时文件 + replace”原子替换：降低写入中断导致文件损坏的概率</li>
+</ul>
+<hr>
+<h2 id="模块-5：CLI-与交互体验">模块 5：CLI 与交互体验</h2>
+<h3 id="5-1-parse-args（命令行接口）">5.1 parse_args（命令行接口）</h3>
+<p>CLI 的基本参数：</p>
+<ul>
+<li><code>-d/--directory</code>：要处理的目录或文件</li>
+<li><code>--config</code>：JSON 配置文件</li>
+<li><code>-t/--tags</code>、<code>-c/--categories</code>：逗号分隔输入</li>
+<li><code>--dry-run</code>：预览不写入</li>
+<li><code>-f/--force</code>：强制覆盖已有 front matter</li>
+<li><code>--exclude</code>：追加排除规则（可多次指定）</li>
+<li><code>-v/-vv</code>：日志等级（INFO/DEBUG）</li>
+</ul>
+<p>特别要提的是：</p>
+<ul>
+<li><code>--skip-existing / --no-skip-existing</code> 被做成互斥选项，避免“默认 True + store_true”这种很容易写错的 argparse 陷阱。</li>
+</ul>
+<h3 id="5-2-interactive-mode（交互模式）">5.2 interactive_mode（交互模式）</h3>
+<p>交互模式适用于少量文件快速处理：</p>
+<ol>
+<li>提示是否继续</li>
+<li>输入 tags / categories</li>
+<li>是否 dry-run</li>
+</ol>
+<p>按 Ctrl+C 或回答 <code>n</code> 会直接退出（返回码 0），不会继续执行转换。</p>
+<hr>
+<h2 id="使用方式（推荐）">使用方式（推荐）</h2>
+<h3 id="方式-A：用配置文件批量导入（最推荐）">方式 A：用配置文件批量导入（最推荐）</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 tools/md2Hexo.py \</span><br><span class="line">  --config tools/configs/awesome-cheatsheets.json \</span><br><span class="line">  -d <span class="built_in">source</span>/_posts/awesome-cheatsheets</span><br></pre></td></tr></table></figure>
+<h3 id="方式-B：临时指定-tags-categories">方式 B：临时指定 tags/categories</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 tools/md2Hexo.py -d <span class="built_in">source</span>/_posts \</span><br><span class="line">  --tags <span class="string">&quot;Python,教程&quot;</span> \</span><br><span class="line">  --categories <span class="string">&quot;自学计算机科学&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="方式-C：预览模式（不写入）">方式 C：预览模式（不写入）</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 tools/md2Hexo.py -d <span class="built_in">source</span>/_posts --dry-run</span><br></pre></td></tr></table></figure>
+<h3 id="方式-D：强制覆盖已存在-front-matter（慎用）">方式 D：强制覆盖已存在 front matter（慎用）</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 tools/md2Hexo.py -d <span class="built_in">source</span>/_posts -f</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="测评：优点、问题与改进点">测评：优点、问题与改进点</h2>
+<h3 id="优点">优点</h3>
+<ul>
+<li>配置模型清晰：适合“多集合、多来源”的批量迁移</li>
+<li>默认安全：跳过已有 front matter，避免重复污染</li>
+<li>扩展空间好：dataclass + 分层结构，继续加功能不容易失控</li>
+</ul>
+<h3 id="需要注意-可能的坑">需要注意/可能的坑</h3>
+<ul>
+<li><strong>Front Matter 与 Markdown 分割线冲突</strong>：极少数以 <code>---</code> 开头的纯 Markdown 可能被误判为 front matter（建议文件开头留空行或加标题）</li>
+<li><strong>编码问题</strong>：如果源文件不是 UTF-8（例如 GBK），会报 decode 错误，需要先统一编码</li>
+<li><strong>目录名策略</strong>：目前只取“最后一级目录名”，如果你希望多级分类，需要在后续版本中扩展</li>
+</ul>
+<h3 id="性能与效率">性能与效率</h3>
+<ul>
+<li>主要耗时来自磁盘 I/O（读取 + 写入）</li>
+<li>本次重构通过“前缀检测”减少了跳过场景的读取量</li>
+</ul>
+<hr>
+<h2 id="结语">结语</h2>
+<p><code>md2Hexo</code> 的本质是一个“迁移/清洗工具”。它的价值不在于复杂算法，而在于：</p>
+<ul>
+<li>可预期的行为（默认安全）</li>
+<li>清晰可控的配置</li>
+<li>出错时能定位原因（日志 + 错误汇总）</li>
+</ul>
+<p>后续如果要继续演进，我会优先考虑：</p>
+<ul>
+<li>增加 <code>--output</code>（输出到新目录而不是原地改写）</li>
+<li>提供 <code>--encoding</code> 或自动编码探测（避免遇到 GBK 文件就失败）</li>
+<li>输出 JSON 报告（便于 CI/统计）</li>
+</ul>
+<p>（完）</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io">HExLL</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yuanweize.github.io/2025/12/31/HExLL%E7%BB%B4%E6%8A%A4/md2Hexo-%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90%E4%B8%8E%E9%87%8D%E6%9E%84/">https://yuanweize.github.io/2025/12/31/HExLL维护/md2Hexo-脚本解析与重构/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://yuanweize.github.io" target="_blank">HExLL-迷雾日志</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Markdown/">Markdown</a><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/%E5%B7%A5%E5%85%B7%E9%93%BE/">工具链</a></div><div class="post-share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/30067203" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/31/%E5%8D%9A%E5%AE%A22025%E5%A4%A7%E6%9B%B4%E6%96%B0-Hexo%E5%8D%87%E7%BA%A7%E4%B8%8E%E5%85%A8%E9%9D%A2%E4%BC%98%E5%8C%96/" title="HExLL大更新：Hexo 8.x 升级与全面优化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">HExLL大更新：Hexo 8.x 升级与全面优化</div></div><div class="info-2"><div class="info-item-1">前言 终于对 HExLL 进行了全面的更新和优化。本文记录了此次更新的所有内容，供后续参考。 📦 依赖版本升级 Hexo 核心升级    组件 旧版本 新版本     Hexo 6.2.0 8.1.1   hexo-deployer-git 3.0.0 4.0.0   hexo-genera...</div></div></div></a><a class="pagination-related" href="/2022/10/31/6-%E7%94%A8%20Vue3%20%E5%92%8C%20Django%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE/" title="6-用 Vue3 和 Django 快速搭建前后端分离项目"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">6-用 Vue3 和 Django 快速搭建前后端分离项目</div></div><div class="info-2"><div class="info-item-1"> 本文由 简悦 SimpRead 转码， 原文地址 mp.weixin.qq.com  Web 开发中前后端分离已经是常规性做法，但是不少初学者不太熟悉如何前后端分离，搭建 Demo 的时候遇到的问题也比较多，今天就来分享一下如何用 Vue 和 Django 快速搭建前后端分离项目。 先搭建前...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2022/08/09/Python-100-Days/Day41-55/49.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E5%85%A5%E9%97%A8/" title="49.RESTful架构和DRF入门"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">49.RESTful架构和DRF入门</div></div><div class="info-2"><div class="info-item-1">RESTful架构和DRF入门 把软件（Software）、平台（Platform）、基础设施（Infrastructure）做成服务（Service）是很多IT企业都一直在做的事情，这就是大家经常听到的SasS（软件即服务）、PasS（平台即服务）和IasS（基础设置即服务）。实现面向服务的...</div></div></div></a><a class="pagination-related" href="/2022/08/09/Python-100-Days/Day41-55/50.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E8%BF%9B%E9%98%B6/" title="50.RESTful架构和DRF进阶"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">50.RESTful架构和DRF进阶</div></div><div class="info-2"><div class="info-item-1">RESTful架构和DRF进阶 除了上一节讲到的方法，使用DRF创建REST风格的数据接口也可以通过CBV（基于类的视图）的方式。使用CBV创建数据接口的特点是代码简单，开发效率高，但是没有FBV（基于函数的视图）灵活，因为使用FBV的方式，数据接口对应的视图函数执行什么样的代码以及返回什么的...</div></div></div></a><a class="pagination-related" href="/2022/08/09/Python-100-Days/Day66-80/73.Pandas%E7%9A%84%E5%BA%94%E7%94%A8-4/" title="73.Pandas的应用-4"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">73.Pandas的应用-4</div></div><div class="info-2"><div class="info-item-1">Pandas的应用-4 DataFrame的应用 数据分析 经过前面的学习，我们已经将数据准备就绪而且变成了我们想要的样子，接下来就是最为重要的数据分析阶段了。当我们拿到一大堆数据的时候，如何从数据中迅速的解读出有价值的信息，这就是数据分析要解决的问题。首先，我们可以获取数据的描述性统计信息，...</div></div></div></a><a class="pagination-related" href="/2022/08/09/DeepLearning-500-questions/%E7%9B%AE%E5%BD%95%E9%A2%84%E8%A7%88/" title="目录预览"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">目录预览</div></div><div class="info-2"><div class="info-item-1">目录	2 第一章 数学基础	1 1.1标量、向量、张量之间的联系	1 1.2张量与矩阵的区别？	1 1.3矩阵和向量相乘结果	1 1.4向量和矩阵的范数归纳	1 1.5如何判断一个矩阵为正定？	2 1.6导数偏导计算	3 1.7导数和偏导数有什么区别？	3 1.8特征值分解与特征向量	3 1....</div></div></div></a><a class="pagination-related" href="/2022/08/09/Python-100-Days/Day66-80/76.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-2/" title="76.数据可视化-2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">76.数据可视化-2</div></div><div class="info-2"><div class="info-item-1">数据可视化-2 通过前面的学习，我们已经对数据可视化工具 matplotlib 有一个初步的认知。大家可能也会发现了，matplotlib 提供的函数虽然强大，但是参数太多，要想对图表进行深度的定制就需要修改一系列的参数，这一点对新手并不友好。另一方面，使用 matplotlib 定制的统计图...</div></div></div></a><a class="pagination-related" href="/2022/08/09/Python-100-Days/Day81-90/84.%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" title="84.贝叶斯分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 09-08-2022</div><div class="info-item-2">84.贝叶斯分类</div></div><div class="info-2"><div class="info-item-1">贝叶斯分类 </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/30067203" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">HExLL</div><div class="author-info-description">个人技术博客，涵盖编程、深度学习、Linux等领域</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">805</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">80</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">74</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="mailto:info@eurun.eu.org" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://t.me/greenseaa" target="_blank" title=""><i class="fab fa-telegram"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Here is HExLL</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-md2Hexo"><span class="toc-number">1.</span> <span class="toc-text">背景：为什么需要 md2Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84%EF%BC%9A%E4%BB%8E%E9%85%8D%E7%BD%AE%E5%88%B0%E6%89%B9%E9%87%8F%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.</span> <span class="toc-text">总体结构：从配置到批量转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97-1%EF%BC%9AConversionConfig%EF%BC%88%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">模块 1：ConversionConfig（配置模型）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">兼容性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97-2%EF%BC%9AConversionResult%EF%BC%88%E7%BB%93%E6%9E%9C%E7%BB%9F%E8%AE%A1%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">模块 2：ConversionResult（结果统计）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97-3%EF%BC%9AHexoFrontMatter%EF%BC%88Front-Matter-%E7%94%9F%E6%88%90%E4%B8%8E%E6%A3%80%E6%B5%8B%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">模块 3：HexoFrontMatter（Front Matter 生成与检测）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%94%B9%E8%BF%9B%E6%A3%80%E6%B5%8B%E9%80%BB%E8%BE%91"><span class="toc-number">5.1.</span> <span class="toc-text">3.1 为什么要改进检测逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-YAML-%E8%BE%93%E5%87%BA%EF%BC%88%E5%8E%BB%E4%BE%9D%E8%B5%96%E7%89%88%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">3.2 YAML 输出（去依赖版）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97-4%EF%BC%9AMd2HexoConverter%EF%BC%88%E6%A0%B8%E5%BF%83%E8%BD%AC%E6%8D%A2%E5%BC%95%E6%93%8E%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">模块 4：Md2HexoConverter（核心转换引擎）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86"><span class="toc-number">6.1.</span> <span class="toc-text">4.1 目录遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%8E%92%E9%99%A4%E8%A7%84%E5%88%99-should-skip-file"><span class="toc-number">6.2.</span> <span class="toc-text">4.2 排除规则 should_skip_file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-tags-categories-%E7%9A%84%E6%9E%84%E5%BB%BA%E7%AD%96%E7%95%A5"><span class="toc-number">6.3.</span> <span class="toc-text">4.3 tags &#x2F; categories 的构建策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-I-O-%E4%B8%8E%E5%81%A5%E5%A3%AE%E6%80%A7"><span class="toc-number">6.4.</span> <span class="toc-text">4.4 I&#x2F;O 与健壮性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97-5%EF%BC%9ACLI-%E4%B8%8E%E4%BA%A4%E4%BA%92%E4%BD%93%E9%AA%8C"><span class="toc-number">7.</span> <span class="toc-text">模块 5：CLI 与交互体验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-parse-args%EF%BC%88%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E5%8F%A3%EF%BC%89"><span class="toc-number">7.1.</span> <span class="toc-text">5.1 parse_args（命令行接口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-interactive-mode%EF%BC%88%E4%BA%A4%E4%BA%92%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-number">7.2.</span> <span class="toc-text">5.2 interactive_mode（交互模式）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">使用方式（推荐）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F-A%EF%BC%9A%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%EF%BC%88%E6%9C%80%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-number">8.1.</span> <span class="toc-text">方式 A：用配置文件批量导入（最推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F-B%EF%BC%9A%E4%B8%B4%E6%97%B6%E6%8C%87%E5%AE%9A-tags-categories"><span class="toc-number">8.2.</span> <span class="toc-text">方式 B：临时指定 tags&#x2F;categories</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F-C%EF%BC%9A%E9%A2%84%E8%A7%88%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%8D%E5%86%99%E5%85%A5%EF%BC%89"><span class="toc-number">8.3.</span> <span class="toc-text">方式 C：预览模式（不写入）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F-D%EF%BC%9A%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96%E5%B7%B2%E5%AD%98%E5%9C%A8-front-matter%EF%BC%88%E6%85%8E%E7%94%A8%EF%BC%89"><span class="toc-number">8.4.</span> <span class="toc-text">方式 D：强制覆盖已存在 front matter（慎用）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%84%EF%BC%9A%E4%BC%98%E7%82%B9%E3%80%81%E9%97%AE%E9%A2%98%E4%B8%8E%E6%94%B9%E8%BF%9B%E7%82%B9"><span class="toc-number">9.</span> <span class="toc-text">测评：优点、问题与改进点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">9.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F-%E5%8F%AF%E8%83%BD%E7%9A%84%E5%9D%91"><span class="toc-number">9.2.</span> <span class="toc-text">需要注意&#x2F;可能的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%B8%8E%E6%95%88%E7%8E%87"><span class="toc-number">9.3.</span> <span class="toc-text">性能与效率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">10.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/31/%E5%8D%9A%E5%AE%A22025%E5%A4%A7%E6%9B%B4%E6%96%B0-Hexo%E5%8D%87%E7%BA%A7%E4%B8%8E%E5%85%A8%E9%9D%A2%E4%BC%98%E5%8C%96/" title="HExLL大更新：Hexo 8.x 升级与全面优化">HExLL大更新：Hexo 8.x 升级与全面优化</a><time datetime="2025-12-31T22:59:59.000Z" title="发表于 31-12-2025 23:59:59">31-12-2025</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/31/HExLL%E7%BB%B4%E6%8A%A4/md2Hexo-%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90%E4%B8%8E%E9%87%8D%E6%9E%84/" title="md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo">md2Hexo 脚本解析与重构：把外部 Markdown 规范化导入 Hexo</a><time datetime="2025-12-31T11:00:00.000Z" title="发表于 31-12-2025 12:00:00">31-12-2025</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/31/6-%E7%94%A8%20Vue3%20%E5%92%8C%20Django%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE/" title="6-用 Vue3 和 Django 快速搭建前后端分离项目">6-用 Vue3 和 Django 快速搭建前后端分离项目</a><time datetime="2022-10-31T00:59:54.000Z" title="发表于 31-10-2022 01:59:54">31-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/30/3-%E6%94%BE%E5%BC%83%E7%BA%A0%E7%BB%93%E3%80%81%E6%8B%A5%E6%8A%B1%E5%A6%A5%E5%8D%8F%EF%BC%8C%E9%87%8D%E5%99%A8%E8%BD%BB%E7%94%A8%E5%B0%B1%E6%98%AF%E9%AB%98%E6%95%88@annote/" title="3-放弃纠结、拥抱妥协，重器轻用就是高效@annote">3-放弃纠结、拥抱妥协，重器轻用就是高效@annote</a><time datetime="2022-10-30T04:30:45.000Z" title="发表于 30-10-2022 05:30:45">30-10-2022</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/08/15/C%E8%AF%AD%E8%A8%80%E4%B8%8EC-%E5%AD%A6%E4%B9%A0/" title="C语言与C++学习">C语言与C++学习</a><time datetime="2022-08-14T22:39:16.000Z" title="发表于 15-08-2022 00:39:16">15-08-2022</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2025 By HExLL</span></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">湘ICP备2023013146号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
